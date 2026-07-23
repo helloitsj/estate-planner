@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Distribution Structures — Children's Trusts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f3f4f1; --ink:#202830; --ink-soft:#55606a; --line:#d9dcd6;
+    --panel:#ffffff; --pro:#2f6d54; --pro-bg:#e8f1ec; --pro-line:#bcd8cb;
+    --con:#a4483a; --con-bg:#f5e6e3; --con-line:#e2c4bf; --accent:#b0812a;
+    --shadow:0 1px 2px rgba(30,40,50,.04),0 8px 24px rgba(30,40,50,.05);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--paper); color:var(--ink);
+    font-family:"IBM Plex Sans",system-ui,sans-serif; font-size:15px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1000px; margin:0 auto; padding:48px 28px 80px;}
+  .mono{font-family:"IBM Plex Mono",monospace;}
+  header{border-bottom:2px solid var(--ink); padding-bottom:22px; margin-bottom:26px;}
+  .eyebrow{font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.18em;
+    text-transform:uppercase; color:var(--accent); margin:0 0 10px;}
+  h1{font-family:"Spectral",Georgia,serif; font-weight:600; font-size:36px; line-height:1.08;
+    letter-spacing:-.01em; margin:0 0 8px;}
+  .sub{color:var(--ink-soft); font-size:15px; max-width:64ch; margin:0;}
+
+  .taxstrip{background:#fbf4e4; border:1px solid #e6d29a; border-radius:10px;
+    padding:16px 20px; margin-bottom:30px; font-size:13.5px; color:#4a4636;}
+  .taxstrip b{color:#3a3a2e;}
+  .taxstrip h3{font-family:"Spectral",serif; font-size:15px; margin:0 0 6px; font-weight:600; color:#5a4a1e;}
+  .taxstrip ul{margin:6px 0 0; padding-left:18px;} .taxstrip li{margin:3px 0;}
+
+  .card{background:var(--panel); border:1px solid var(--line); border-radius:12px;
+    box-shadow:var(--shadow); margin-bottom:18px; overflow:hidden;}
+  .chead{padding:16px 22px 14px; border-bottom:1px solid var(--line); background:#fbfcfa;
+    display:flex; align-items:baseline; gap:12px;}
+  .cnum{font-family:"IBM Plex Mono",monospace; font-size:12px; font-weight:500; color:#fff;
+    background:var(--ink); border-radius:5px; padding:3px 8px; flex:none;}
+  .ctitle{font-family:"Spectral",serif; font-weight:600; font-size:20px; margin:0; line-height:1.2;}
+  .chow{font-size:13.5px; color:var(--ink-soft); margin:2px 0 0;}
+  .body{display:grid; grid-template-columns:1fr 1fr; gap:0;}
+  .col{padding:14px 20px;}
+  .col.p{border-right:1px solid #eef0ec;}
+  .clab{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.08em;
+    text-transform:uppercase; margin:0 0 8px; display:flex; align-items:center; gap:6px;}
+  .clab.p{color:var(--pro);} .clab.c{color:var(--con);}
+  .clab .m{width:14px; height:14px; border-radius:3px; display:inline-flex; align-items:center;
+    justify-content:center; font-size:10px; color:#fff; font-family:"IBM Plex Sans";}
+  .clab.p .m{background:var(--pro);} .clab.c .m{background:var(--con);}
+  ul.pts{margin:0; padding:0; list-style:none;}
+  ul.pts li{font-size:13.5px; padding:3px 0 3px 16px; position:relative; line-height:1.45;}
+  ul.pts li::before{content:""; position:absolute; left:0; top:9px; width:6px; height:6px; border-radius:50%;}
+  .p ul.pts li::before{background:var(--pro-line);}
+  .c ul.pts li::before{background:var(--con-line);}
+  .discuss{padding:12px 22px; background:#f6f8f5; border-top:1px solid #eef0ec;
+    font-size:13px; color:var(--ink-soft);}
+  .discuss b{color:var(--accent); font-family:"IBM Plex Mono",monospace; font-size:10.5px;
+    letter-spacing:.08em; text-transform:uppercase; font-weight:500;}
+  .tag{display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.03em;
+    padding:2px 7px; border-radius:4px; margin-left:auto; align-self:center; white-space:nowrap;}
+  .tag.step{background:var(--pro-bg); color:var(--pro); border:1px solid var(--pro-line);}
+  .tag.nostep{background:var(--con-bg); color:var(--con); border:1px solid var(--con-line);}
+  .tag.age{background:#eef0f4; color:#3a4a63; border:1px solid #cdd6e2;}
+
+  .rec{background:#eef4f0; border:1.5px solid var(--pro); border-radius:12px; padding:22px 24px; margin-top:30px;}
+  .rec h2{font-family:"Spectral",serif; font-size:21px; margin:0 0 8px; font-weight:600; color:#204a3a;}
+  .rec p{margin:0 0 8px; font-size:14.5px;}
+  .rec .settle{margin:14px 0 0; padding:14px 16px; background:#fff; border-radius:8px; border:1px solid var(--line);}
+  .rec .settle h4{font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.08em;
+    text-transform:uppercase; margin:0 0 8px; color:var(--accent);}
+  .rec .settle ol{margin:0; padding-left:20px; font-size:13.5px;} .rec .settle li{margin:5px 0;}
+
+  footer{margin-top:44px; padding-top:18px; border-top:1px solid var(--line); font-size:12px; color:var(--ink-soft);}
+  @media (max-width:640px){h1{font-size:28px;} .body{grid-template-columns:1fr;} .col.p{border-right:none; border-bottom:1px solid #eef0ec;} .wrap{padding:32px 16px 60px;}}
+  @media print{body{background:#fff;} .card,.rec{box-shadow:none; break-inside:avoid;} *{-webkit-print-color-adjust:exact; print-color-adjust:exact;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <p class="eyebrow">Children's Trusts · New York</p>
+  <h1>How the kids receive it — six ways</h1>
+  <p class="sub">Six structures side by side. Each controls <em>when</em> children receive money and <em>how protected</em> it is once they do. The trade-offs below are the ones that usually decide it.</p>
+</header>
+
+<p style="font-size:12px;color:var(--ink-soft);background:#fbf4e4;border:1px solid #e6d29a;border-radius:8px;padding:12px 16px;margin:0 0 26px;"><strong>Educational information, not legal advice.</strong> This page describes how New York instruments generally operate. It is not a legal instrument, does not account for any individual situation, and law varies by state and changes over time. Consult a licensed New York attorney.</p>
+
+<div class="taxstrip">
+  <h3>The tax reality that applies across all six</h3>
+  <ul>
+    <li><b>Federal estate tax — ignore it.</b> The exemption is $15M per person. A child would need an estate above that threshold at their own death for it to apply.</li>
+    <li><b>NY estate tax — the one that can bite, modestly.</b> New York's exclusion is far lower than the federal one and carries a hard cliff. A child who inherits and grows it can cross that at their own death. See /sources for current figures.</li>
+    <li><b>The step-up trade-off drives the real decision.</b> Money a child <em>owns</em> gets a basis step-up at their death (heirs skip capital-gains tax). Money locked in a protective lifetime trust usually does <em>not</em> — for a family under the New York exclusion, the lost step-up often costs more than the estate tax it saves. <b>Lifetime trusts are a divorce/creditor shield, not a tax play.</b></li>
+  </ul>
+</div>
+
+<div class="card">
+  <div class="chead"><span class="cnum">1</span><div><p class="ctitle">Staggered outright — 25 / 30 / 35</p><p class="chow">Thirds vest outright at each age. The most common default.</p></div><span class="tag step">Keeps step-up</span></div>
+  <div class="body">
+    <div class="col p"><p class="clab p"><span class="m">✓</span> For</p><ul class="pts"><li>Simple, familiar, cheap to run</li><li>Autonomy arrives in stages — a mistake at 25 costs only a third</li><li>Assets get a basis step-up at the child's death</li></ul></div>
+    <div class="col c"><p class="clab c"><span class="m">✕</span> Against</p><ul class="pts"><li>25 is young to receive a third of a large sum</li><li>Once vested, fully exposed to the child's divorce, creditors, lawsuits</li><li>No protection at all after the final tranche</li></ul></div>
+  </div>
+  <div class="discuss"><b>Discuss</b> &nbsp;Is a 25-year-old receiving a third outright, no strings, the right starting point?</div>
+</div>
+
+<div class="card">
+  <div class="chead"><span class="cnum">2</span><div><p class="ctitle">Later staggered — 30 / 35 / 40</p><p class="chow">Same shape, pushed later.</p></div><span class="tag step">Keeps step-up</span></div>
+  <div class="body">
+    <div class="col p"><p class="clab p"><span class="m">✓</span> For</p><ul class="pts"><li>Same simplicity, more maturity before large sums land</li><li>Still gets the step-up</li><li>30 is a more common "first meaningful tranche" age than 25</li></ul></div>
+    <div class="col c"><p class="clab c"><span class="m">✕</span> Against</p><ul class="pts"><li>Still fully exposed once each tranche vests</li><li>A child in their 20s waits longer for real access</li></ul></div>
+  </div>
+  <div class="discuss"><b>Discuss</b> &nbsp;Does a first tranche at 30 rather than 25 fit better?</div>
+</div>
+
+<div class="card">
+  <div class="chead"><span class="cnum">3</span><div><p class="ctitle">Single age — all at 30 (or 35)</p><p class="chow">One lump, one handoff.</p></div><span class="tag step">Keeps step-up</span></div>
+  <div class="body">
+    <div class="col p"><p class="clab p"><span class="m">✓</span> For</p><ul class="pts"><li>Simplest possible structure</li><li>Clean single transfer of control</li></ul></div>
+    <div class="col c"><p class="clab c"><span class="m">✕</span> Against</p><ul class="pts"><li>All-or-nothing — one bad decision risks everything at once</li><li>No staging to let the child learn on a smaller slice first</li><li>Rarely advised unless the amount is small</li></ul></div>
+  </div>
+  <div class="discuss"><b>Discuss</b> &nbsp;Generally only worth it when the trust is expected to be modest.</div>
+</div>
+
+<div class="card">
+  <div class="chead"><span class="cnum">4</span><div><p class="ctitle">Lifetime / beneficiary-controlled trust</p><p class="chow">Never distributed outright. Child becomes co-trustee ~30, controlling trustee ~35 — but assets stay in trust for life.</p></div><span class="tag nostep">Loses step-up*</span></div>
+  <div class="body">
+    <div class="col p"><p class="clab p"><span class="m">✓</span> For</p><ul class="pts"><li>Strongest shield — protects from the child's divorce, creditors, lawsuits</li><li>Keeps the inheritance out of the child's own taxable estate</li><li>Child still controls it and can direct where it goes at death</li></ul></div>
+    <div class="col c"><p class="clab c"><span class="m">✕</span> Against</p><ul class="pts"><li>Forfeits the basis step-up — real capital-gains cost on equity-heavy assets, usually outweighing any NY estate-tax saving</li><li>More complex; ongoing trust tax filings</li><li>Some children experience it as distrust</li></ul></div>
+  </div>
+  <div class="discuss"><b>Discuss</b> &nbsp;Is protection from a future divorce or lawsuit worth the added complexity? &nbsp;*A "step-up toggle" (trust-protector power) can restore the step-up when there's no estate-tax cost — best of both, more drafting.</div>
+</div>
+
+<div class="card">
+  <div class="chead"><span class="cnum">5</span><div><p class="ctitle">Hybrid — partial outright + lifetime trust</p><p class="chow">A defined slice vests outright (house / business money); the rest stays in a protective lifetime trust.</p></div><span class="tag age">Mixed</span></div>
+  <div class="body">
+    <div class="col p"><p class="clab p"><span class="m">✓</span> For</p><ul class="pts"><li>Gives a real "this is mine" chunk plus lifetime protection on the balance</li><li>Balances autonomy against asset protection</li><li>The outright slice gets a step-up; the protected slice is shielded</li></ul></div>
+    <div class="col c"><p class="clab c"><span class="m">✕</span> Against</p><ul class="pts"><li>More complex — two regimes in one document</li><li>The split has to be decided</li></ul></div>
+  </div>
+  <div class="discuss"><b>Discuss</b> &nbsp;How much should be theirs free and clear versus protected for life? A common split is one tranche outright, remainder in trust.</div>
+</div>
+
+<div class="card">
+  <div class="chead"><span class="cnum">6</span><div><p class="ctitle">Pot / family trust, then split</p><p class="chow">All the money stays in one common pool until the youngest reaches a set age (~23), then divides into equal shares.</p></div><span class="tag age">Suits an age gap</span></div>
+  <div class="body">
+    <div class="col p"><p class="clab p"><span class="m">✓</span> For</p><ul class="pts"><li>Built for a wide age gap — the trustee spends by need, like a parent, so a younger child's upbringing and college aren't shortchanged</li><li>Keeps funds flexible during the minority years</li><li>Then converts to any structure above for the split shares</li></ul></div>
+    <div class="col c"><p class="clab c"><span class="m">✕</span> Against</p><ul class="pts"><li>The older child's share isn't fixed during the pot years — can feel unequal</li><li>Needs a clear "split age" and a downstream structure chosen</li></ul></div>
+  </div>
+  <div class="discuss"><b>Discuss</b> &nbsp;With a wide age gap, is one common pot through the minority years, then a split, the better fit?</div>
+</div>
+
+<div class="rec">
+  <h2>A common starting point</h2>
+  <p>A frequently drafted shape: <strong>pot trust through the minority years</strong> (handles an age gap) → split into <strong>staggered shares at 30 / 35 / 40</strong> → with an optional <strong>lifetime-trust wrapper plus step-up toggle</strong> where divorce or creditor protection matters. This is a pattern to react to, not a recommendation.</p>
+  <p>For most families this isn't primarily a tax decision — below the state exclusion the tax differences are second-order. It's a decision about <em>autonomy versus protection</em> and <em>how to handle an age gap</em>.</p>
+  <div class="settle">
+    <h4>Questions to settle together</h4>
+    <ol>
+      <li>Common pot during the minority years, or separate shares from day one?</li>
+      <li>First meaningful tranche at 25, 30, or later?</li>
+      <li>Full autonomy by the mid-30s, or lifetime protection with the child as trustee?</li>
+      <li>If protection matters: full lifetime trust, or a hybrid with a chunk outright?</li>
+    </ol>
+  </div>
+</div>
+
+<footer>Educational information, not legal advice and not a legal instrument. Distribution ages shown are common defaults, not recommendations. Tax figures change annually — see /sources for current amounts and the date each was verified.</footer>
+</div>
+</body>
+</html>

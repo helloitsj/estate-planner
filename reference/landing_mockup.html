@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Landing Page — Design Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f3f4f1; --ink:#202830; --ink-soft:#55606a; --line:#d9dcd6;
+    --panel:#ffffff; --active:#2f6d54; --active-bg:#e4efe9; --active-line:#bcd8cb;
+    --dormant:#8b9298; --dormant-bg:#e9ebed; --dormant-line:#d5d9db;
+    --term:#a4483a; --term-bg:#f3e2df; --term-line:#e2c4bf;
+    --accent:#b0812a;
+    --shadow:0 1px 2px rgba(30,40,50,.04),0 8px 24px rgba(30,40,50,.05);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--paper); color:var(--ink);
+    font-family:"IBM Plex Sans",system-ui,sans-serif; font-size:15px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace;}
+  a{color:inherit;}
+
+  /* ── ledger rail: the site's spine ─────────────────── */
+  .shell{display:grid; grid-template-columns:186px 1fr; max-width:1180px; margin:0 auto;}
+  .rail{border-right:1px solid var(--line); padding:44px 0 60px;
+    position:sticky; top:0; align-self:start; height:100vh;}
+  .raillab{font-family:"IBM Plex Mono",monospace; font-size:9.5px; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--accent); padding:0 22px; margin:0 0 18px;}
+  .railitem{display:flex; gap:11px; align-items:flex-start; padding:9px 22px;
+    font-size:11.5px; line-height:1.3; color:var(--ink-soft); border-left:2px solid transparent;
+    transition:color .3s, border-color .3s;}
+  .railitem .rc{font-family:"IBM Plex Mono",monospace; font-size:9.5px; color:var(--dormant);
+    padding-top:1px; transition:color .3s;}
+  .railitem.on{color:var(--ink); border-left-color:var(--accent);}
+  .railitem.on .rc{color:var(--accent);}
+  .railfoot{padding:20px 22px 0; margin-top:14px; border-top:1px solid var(--line);
+    font-size:11px; color:var(--ink-soft); line-height:1.4;}
+
+  .col{padding:44px 52px 90px; max-width:760px;}
+
+  /* ── hero ──────────────────────────────────────────── */
+  .eyebrow{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.18em;
+    text-transform:uppercase; color:var(--accent); margin:0 0 16px;}
+  h1{font-family:"Spectral",Georgia,serif; font-weight:600; font-size:47px;
+    line-height:1.04; letter-spacing:-.018em; margin:0 0 18px; max-width:15ch;}
+  h1 em{font-style:italic; color:var(--accent); font-weight:500;}
+  .lede{font-size:17px; color:var(--ink-soft); max-width:54ch; margin:0 0 34px; line-height:1.5;}
+
+  /* live demo strip — the signature element */
+  .demo{background:var(--panel); border:1px solid var(--line); border-radius:12px;
+    box-shadow:var(--shadow); overflow:hidden; margin-bottom:14px;}
+  .demohead{display:flex; justify-content:space-between; align-items:baseline;
+    padding:15px 22px 13px; border-bottom:1px solid var(--line); background:#fbfcfa;}
+  .demostate{font-family:"Spectral",serif; font-size:17px; font-weight:600; margin:0;}
+  .demotick{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--ink-soft);}
+  .demorows{padding:6px 22px 16px;}
+  .drow{display:grid; grid-template-columns:1fr auto; align-items:center; gap:14px;
+    padding:9px 0; border-bottom:1px solid #eef0ec; font-size:13.5px;}
+  .drow:last-child{border-bottom:none;}
+  .pill{font-family:"IBM Plex Mono",monospace; font-size:9px; letter-spacing:.06em;
+    text-transform:uppercase; padding:3px 9px; border-radius:4px; white-space:nowrap;
+    transition:background .45s, color .45s, border-color .45s;}
+  .pill.a{background:var(--active-bg); color:var(--active); border:1px solid var(--active-line);}
+  .pill.d{background:var(--dormant-bg); color:var(--ink-soft); border:1px solid var(--dormant-line);}
+  .pill.t{background:var(--term-bg); color:var(--term); border:1px solid var(--term-line);}
+
+  .scrubwrap{padding:0 22px 20px;}
+  .track{position:relative; height:34px; cursor:pointer; touch-action:none; outline:none;}
+  .rail2{position:absolute; top:16px; left:0; right:0; height:3px; background:var(--line); border-radius:2px;}
+  .fill{position:absolute; top:16px; left:0; height:3px; background:var(--accent); border-radius:2px;
+    transition:width .45s cubic-bezier(.4,0,.2,1);}
+  .knob{position:absolute; top:6px; width:22px; height:22px; margin-left:-11px; border-radius:50%;
+    background:var(--panel); border:2.5px solid var(--ink); box-shadow:0 2px 6px rgba(30,40,50,.16);
+    cursor:grab; transition:left .45s cubic-bezier(.4,0,.2,1);}
+  .track:focus-visible .knob{box-shadow:0 0 0 3px var(--accent);}
+  .dragging .knob,.dragging .fill{transition:none;}
+  .grabme{font-size:11.5px; color:var(--ink-soft); text-align:center; margin:0 0 40px;
+    font-family:"IBM Plex Mono",monospace; letter-spacing:.04em;}
+
+  /* ── sections ──────────────────────────────────────── */
+  h2{font-family:"Spectral",serif; font-weight:600; font-size:26px; letter-spacing:-.008em;
+    margin:0 0 10px;}
+  .sec{margin:0 0 58px;}
+  .sec > p{color:var(--ink-soft); max-width:58ch; margin:0 0 22px;}
+
+  .shapes{display:grid; grid-template-columns:1fr 1fr; gap:11px;}
+  .shape{background:var(--panel); border:1px solid var(--line); border-radius:10px;
+    padding:16px 18px; text-decoration:none; display:block;
+    transition:border-color .18s, transform .18s, box-shadow .18s;}
+  .shape:hover{border-color:var(--accent); transform:translateY(-1px); box-shadow:var(--shadow);}
+  .shape h3{font-family:"Spectral",serif; font-size:16px; margin:0 0 4px; font-weight:600;}
+  .shape p{margin:0; font-size:12.5px; color:var(--ink-soft); line-height:1.4;}
+  .shape.soon{opacity:.5; pointer-events:none;}
+  .shape.soon::after{content:"soon"; font-family:"IBM Plex Mono",monospace; font-size:9px;
+    letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft);}
+
+  .index{border-top:1px solid var(--line);}
+  .ix{display:grid; grid-template-columns:26px 1fr auto; gap:14px; align-items:baseline;
+    padding:14px 2px; border-bottom:1px solid var(--line); text-decoration:none;
+    transition:background .15s;}
+  .ix:hover{background:#fbfcfa;}
+  .ix .n{font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--accent);}
+  .ix .t{font-size:14.5px;}
+  .ix .t span{display:block; font-size:12.5px; color:var(--ink-soft); margin-top:2px;}
+  .ix .arr{color:var(--dormant); font-size:14px;}
+
+  .prep{background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--active);
+    border-radius:12px; padding:26px 28px; box-shadow:var(--shadow);}
+  .prep h2{margin-bottom:8px;}
+  .prep p{color:var(--ink-soft); margin:0 0 16px; max-width:56ch;}
+  .privacy{display:inline-flex; align-items:center; gap:8px; font-family:"IBM Plex Mono",monospace;
+    font-size:10.5px; letter-spacing:.05em; text-transform:uppercase; color:var(--active);
+    background:var(--active-bg); border:1px solid var(--active-line); border-radius:5px;
+    padding:6px 12px;}
+  .btn{display:inline-block; font-family:"IBM Plex Sans"; font-size:14px; font-weight:500;
+    background:var(--ink); color:var(--paper); border:0; border-radius:7px;
+    padding:11px 20px; text-decoration:none; cursor:pointer; margin-right:10px;}
+  .btn.ghost{background:transparent; color:var(--ink); border:1px solid var(--line);}
+
+  .disc{font-size:12px; color:var(--ink-soft); background:#fbf4e4; border:1px solid #e6d29a;
+    border-radius:8px; padding:13px 17px; margin:52px 0 0;}
+  footer{margin-top:26px; padding-top:18px; border-top:1px solid var(--line);
+    font-size:11.5px; color:var(--ink-soft);}
+
+  @media (max-width:860px){
+    .shell{grid-template-columns:1fr;}
+    .rail{position:static; height:auto; border-right:none; border-bottom:1px solid var(--line);
+      padding:22px 0 14px; display:flex; gap:0; overflow-x:auto;}
+    .raillab,.railfoot{display:none;}
+    .railitem{border-left:none; border-bottom:2px solid transparent; white-space:nowrap; padding:8px 14px;}
+    .railitem.on{border-bottom-color:var(--accent);}
+    .col{padding:30px 20px 70px;}
+    h1{font-size:33px;} .shapes{grid-template-columns:1fr;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none !important; animation:none !important;}
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- the spine: six states, always visible, tracks the demo -->
+  <nav class="rail" aria-label="Life states">
+    <p class="raillab">The arc</p>
+    <div class="railitem on" data-r="0"><span class="rc">S0</span><span>Both well</span></div>
+    <div class="railitem" data-r="1"><span class="rc">S1</span><span>One loses capacity</span></div>
+    <div class="railitem" data-r="2"><span class="rc">S2</span><span>Both incapacitated</span></div>
+    <div class="railitem" data-r="3"><span class="rc">S3</span><span>First death</span></div>
+    <div class="railitem" data-r="4"><span class="rc">S4</span><span>Both gone · kids minor</span></div>
+    <div class="railitem" data-r="5"><span class="rc">S5</span><span>Both gone · kids adult</span></div>
+    <p class="railfoot">New York only.<br>Educational, not legal advice.</p>
+  </nav>
+
+  <main class="col">
+
+    <p class="eyebrow">New York · Estate Instruments</p>
+    <h1>Who decides what, and <em>when</em></h1>
+    <p class="lede">Everything written about estate planning is organized by document. That's the wrong index. Nobody wonders what a power of attorney <em>is</em> — they wonder who signs for the apartment while they're in a coma, and whether that changes the moment they die.</p>
+
+    <!-- SIGNATURE ELEMENT: the pitch is the interaction, not the copy -->
+    <div class="demo">
+      <div class="demohead">
+        <p class="demostate" id="dstate">Both spouses alive &amp; competent</p>
+        <span class="demotick" id="dtick">S0</span>
+      </div>
+      <div class="demorows">
+        <div class="drow"><span>Health Care Proxy</span><span class="pill d" data-p="0">Dormant</span></div>
+        <div class="drow"><span>Power of Attorney</span><span class="pill d" data-p="1">Dormant</span></div>
+        <div class="drow"><span>Will / Executor</span><span class="pill d" data-p="2">Dormant</span></div>
+        <div class="drow"><span>Guardianship</span><span class="pill d" data-p="3">Dormant</span></div>
+      </div>
+      <div class="scrubwrap">
+        <div class="track" id="track" role="slider" tabindex="0"
+             aria-valuemin="0" aria-valuemax="5" aria-valuenow="0"
+             aria-label="Life state" aria-valuetext="Both spouses alive and competent">
+          <div class="rail2"></div><div class="fill" id="fill"></div><div class="knob" id="knob"></div>
+        </div>
+      </div>
+    </div>
+    <p class="grabme">drag it &nbsp;·&nbsp; watch what ends at death</p>
+
+    <div class="sec">
+      <h2>Start where you actually are</h2>
+      <p>The instruments work the same for everyone. What changes is who's in the chain by default, what happens if you do nothing, and which gaps your situation opens.</p>
+      <div class="shapes">
+        <a class="shape" href="#"><h3>Married, young children</h3><p>Guardianship, incapacity, and the pour-over will</p></a>
+        <a class="shape" href="#"><h3>Single parent</h3><p>No surviving-parent default. Guardianship is everything.</p></a>
+        <a class="shape soon" href="#"><h3>Blended family </h3><p>Stepchildren, elective share, stale beneficiary forms</p></a>
+        <a class="shape soon" href="#"><h3>Unmarried partners </h3><p>No intestate rights. No default authority.</p></a>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>The things people get wrong</h2>
+      <p>One idea per page. Answered in the first paragraph.</p>
+      <div class="index">
+        <a class="ix" href="#"><span class="n">01</span><span class="t">A power of attorney dies when you do<span>It never survives death. Neither does a health care proxy.</span></span><span class="arr">→</span></a>
+        <a class="ix" href="#"><span class="n">02</span><span class="t">A will's guardian doesn't help during incapacity<span>New York needs a separate standby designation. Most plans skip it.</span></span><span class="arr">→</span></a>
+        <a class="ix" href="#"><span class="n">03</span><span class="t">An unfunded trust does nothing<span>Signing it isn't the work. Retitling is.</span></span><span class="arr">→</span></a>
+        <a class="ix" href="#"><span class="n">04</span><span class="t">Your beneficiary forms outrank your will<span>The 401(k) form from your first marriage wins.</span></span><span class="arr">→</span></a>
+        <a class="ix" href="#"><span class="n">05</span><span class="t">What probate actually is in New York<span>And the four things that skip it entirely.</span></span><span class="arr">→</span></a>
+      </div>
+    </div>
+
+    <div class="prep">
+      <h2>Walk in prepared</h2>
+      <p>Answer a handful of questions and print an agenda for your attorney: your household facts, your fiduciary candidates, an asset checklist, and the specific questions your answers raise. Not a plan — a better first meeting.</p>
+      <p><a class="btn" href="#">Build my prep document</a><a class="btn ghost" href="#">See a sample</a></p>
+      <p style="margin:18px 0 0;"><span class="privacy">◆ Your answers never leave this browser</span></p>
+    </div>
+
+    <p class="disc"><strong>Educational information, not legal advice.</strong> This site describes how New York instruments generally operate. It does not account for any individual situation, and law varies by state and changes over time. Nothing here creates an attorney–client relationship. Consult a licensed New York attorney.</p>
+
+    <footer>New York only · <a href="#">Sources and last-verified dates</a> · Last updated <span class="mono">2026-07-23</span></footer>
+
+  </main>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var STATES = [
+    ["Both spouses alive &amp; competent", ["d","d","d","d"]],
+    ["One spouse incapacitated",           ["a","a","d","d"]],
+    ["Both incapacitated at once",         ["a","a","d","d"]],
+    ["One spouse dies",                    ["t","t","a","d"]],
+    ["Both gone \u2014 children minors",   ["t","t","a","a"]],
+    ["Both gone \u2014 children adults",   ["t","t","t","t"]]
+  ];
+  var TXT = { a:"Active", d:"Dormant", t:"Ended" };
+  var MAX = 5, idx = 0, dragging = false, autoplaying = false;
+
+  var track = document.getElementById("track"),
+      fill  = document.getElementById("fill"),
+      knob  = document.getElementById("knob"),
+      pills = document.querySelectorAll(".pill"),
+      rails = document.querySelectorAll(".railitem");
+
+  function set(i) {
+    i = Math.max(0, Math.min(MAX, i));
+    idx = i;
+    var st = STATES[i], pct = (i / MAX) * 100;
+    fill.style.width = pct + "%";
+    knob.style.left = pct + "%";
+    document.getElementById("dstate").innerHTML = st[0];
+    document.getElementById("dtick").textContent = "S" + i;
+    track.setAttribute("aria-valuenow", i);
+    track.setAttribute("aria-valuetext", st[0].replace(/&amp;/g, "and"));
+    Array.prototype.forEach.call(pills, function (p, j) {
+      var c = st[1][j];
+      p.className = "pill " + c;
+      p.textContent = TXT[c];
+    });
+    Array.prototype.forEach.call(rails, function (r, j) {
+      r.classList.toggle("on", j === i);
+    });
+  }
+
+  function pos(x) {
+    var r = track.getBoundingClientRect();
+    return Math.round(Math.max(0, Math.min(1, (x - r.left) / r.width)) * MAX);
+  }
+  function halt() { autoplaying = false; }
+
+  track.addEventListener("pointerdown", function (e) {
+    halt(); dragging = true; track.classList.add("dragging");
+    track.setPointerCapture(e.pointerId); set(pos(e.clientX)); track.focus();
+  });
+  track.addEventListener("pointermove", function (e) { if (dragging) set(pos(e.clientX)); });
+  function stop(e) {
+    if (!dragging) return;
+    dragging = false; track.classList.remove("dragging");
+    if (e.pointerId != null && track.hasPointerCapture(e.pointerId)) track.releasePointerCapture(e.pointerId);
+  }
+  track.addEventListener("pointerup", stop);
+  track.addEventListener("pointercancel", stop);
+  track.addEventListener("keydown", function (e) {
+    halt();
+    if (e.key === "ArrowRight" || e.key === "ArrowUp") { set(idx + 1); e.preventDefault(); }
+    else if (e.key === "ArrowLeft" || e.key === "ArrowDown") { set(idx - 1); e.preventDefault(); }
+  });
+  Array.prototype.forEach.call(rails, function (r, j) {
+    r.addEventListener("click", function () { halt(); set(j); });
+  });
+
+  set(0);
+
+  // one-time autoplay: demonstrates the thesis before any copy is read.
+  // diegetic, not decorative — the motion IS the content. Stops on any input.
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduce) {
+    autoplaying = true;
+    var step = 0;
+    var timer = setInterval(function () {
+      if (!autoplaying || step >= 4) { clearInterval(timer); return; }
+      step++; set(step);
+    }, 900);
+  }
+})();
+</script>
+</body>
+</html>

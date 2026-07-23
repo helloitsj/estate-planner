@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>End-of-Life Preferences — New York Health Care Proxy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f3f4f1; --ink:#202830; --ink-soft:#55606a; --line:#d9dcd6;
+    --panel:#ffffff; --accent:#b0812a; --flag:#a4483a; --flag-bg:#f5e6e3;
+    --j:#2f5d6d; --j-bg:#e6eef1; --w:#7a4a6d; --w-bg:#f0e6ee;
+    --shadow:0 1px 2px rgba(30,40,50,.04),0 8px 24px rgba(30,40,50,.05);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--paper); color:var(--ink);
+    font-family:"IBM Plex Sans",system-ui,sans-serif; font-size:15px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1020px; margin:0 auto; padding:48px 28px 80px;}
+  header{border-bottom:2px solid var(--ink); padding-bottom:22px; margin-bottom:22px;}
+  .eyebrow{font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.18em;
+    text-transform:uppercase; color:var(--accent); margin:0 0 10px;}
+  h1{font-family:"Spectral",Georgia,serif; font-weight:600; font-size:34px; line-height:1.1;
+    letter-spacing:-.01em; margin:0 0 8px;}
+  .sub{color:var(--ink-soft); font-size:15px; max-width:66ch; margin:0;}
+
+  .note{background:#fbf4e4; border:1px solid #e6d29a; border-radius:10px; padding:16px 20px;
+    margin-bottom:14px; font-size:13.5px; color:#4a4636;}
+  .note b{color:#5a4a1e;}
+  .howto{font-size:13px; color:var(--ink-soft); margin:0 0 26px; display:flex; gap:18px; flex-wrap:wrap;}
+  .howto span{display:inline-flex; align-items:center; gap:7px;}
+  .swatch{width:12px; height:12px; border-radius:3px;}
+  .swatch.j{background:var(--j);} .swatch.w{background:var(--w);}
+
+  .tbl{background:var(--panel); border:1px solid var(--line); border-radius:12px;
+    box-shadow:var(--shadow); overflow:hidden;}
+  .row{display:grid; grid-template-columns:1.15fr 1.35fr 1fr 1fr; border-bottom:1px solid #eef0ec;}
+  .row:last-child{border-bottom:none;}
+  .row.head{background:var(--ink); color:#fff;}
+  .row.head .cell{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.06em;
+    text-transform:uppercase; padding:11px 16px; font-weight:500;}
+  .row.head .cj{background:var(--j);} .row.head .cw{background:var(--w);}
+  .cell{padding:14px 16px; border-right:1px solid #eef0ec;}
+  .cell:last-child{border-right:none;}
+  .q{font-weight:600; font-size:14px;}
+  .q .sm{display:block; font-weight:400; font-size:12px; color:var(--ink-soft); margin-top:3px;}
+  .opts{font-size:12.5px; color:var(--ink-soft); line-height:1.5;}
+  .opts .pill{display:inline-block; background:#eef0ec; border:1px solid #dde0da; border-radius:4px;
+    padding:1px 7px; margin:2px 3px 2px 0; font-size:11.5px; color:#3a4149;}
+  .fill{background:#fcfdfb; min-height:56px;}
+  .cj{background:var(--j-bg);} .cw{background:var(--w-bg);}
+  .flagrow .cell{background:var(--flag-bg);}
+  .flagrow .q{color:var(--flag);}
+  .nyflag{display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:9.5px;
+    letter-spacing:.04em; text-transform:uppercase; background:var(--flag); color:#fff;
+    border-radius:3px; padding:1px 6px; margin-top:6px;}
+
+  .values{background:var(--panel); border:1px solid var(--line); border-radius:12px;
+    box-shadow:var(--shadow); margin-top:22px; padding:22px 24px;}
+  .values h2{font-family:"Spectral",serif; font-size:20px; margin:0 0 4px; font-weight:600;}
+  .values p{color:var(--ink-soft); font-size:13.5px; margin:0 0 16px; max-width:70ch;}
+  .vbox{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  .vcard{border:1px solid var(--line); border-radius:8px; overflow:hidden;}
+  .vcard .vh{font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.06em;
+    text-transform:uppercase; padding:8px 14px; color:#fff; font-weight:500;}
+  .vcard.j .vh{background:var(--j);} .vcard.w .vh{background:var(--w);}
+  .vcard .vf{min-height:120px; background:#fcfdfb;}
+
+  footer{margin-top:40px; padding-top:18px; border-top:1px solid var(--line); font-size:12px; color:var(--ink-soft);}
+  @media (max-width:680px){
+    h1{font-size:27px;}
+    .row{grid-template-columns:1fr 1fr;} .row .cell.opts{grid-column:1 / -1; border-right:none;}
+    .row.head .cell:nth-child(2){display:none;}
+    .vbox{grid-template-columns:1fr;}
+    .wrap{padding:32px 16px 60px;}
+  }
+  @media print{body{background:#fff;} .tbl,.values{box-shadow:none;} .row{break-inside:avoid;} *{-webkit-print-color-adjust:exact; print-color-adjust:exact;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <p class="eyebrow">New York · Health Care Proxy</p>
+  <h1>End-of-life preferences — a sheet to talk through</h1>
+  <p class="sub">Each person fills this in for themselves. These wishes guide a health care agent — typically a spouse, then a named backup chain — when you can't speak for yourself.</p>
+</header>
+
+<p style="font-size:12px;color:var(--ink-soft);background:#fbf4e4;border:1px solid #e6d29a;border-radius:8px;padding:12px 16px;margin:0 0 26px;"><strong>Educational information, not legal advice.</strong> This page describes how New York instruments generally operate. It is not a legal instrument, does not account for any individual situation, and law varies by state and changes over time. Consult a licensed New York attorney.</p>
+
+<div class="note">
+  <b>Mostly optional — with one exception.</b> New York only requires that you name an agent; stating wishes is your choice. But your agent may make <b>feeding-tube (artificial nutrition &amp; hydration)</b> decisions <b>only if they reasonably know your wishes</b>. Left blank, it ties an agent's hands on the decision that most often matters. At minimum, answer that row and add a short values note at the bottom.
+</div>
+<div class="howto">
+  <span><span class="swatch j"></span> Column A</span>
+  <span><span class="swatch w"></span> Column B</span>
+  <span>Leave blank what you're unsure of — a conversation starter, not a form to force.</span>
+</div>
+
+<div class="tbl">
+  <div class="row head">
+    <div class="cell">Decision</div>
+    <div class="cell">Common options</div>
+    <div class="cell cj">Person A</div>
+    <div class="cell cw">Person B</div>
+  </div>
+
+  <div class="row">
+    <div class="cell q">When these wishes apply<span class="sm">The conditions that "switch on" everything below</span></div>
+    <div class="cell opts"><span class="pill">Terminal illness</span><span class="pill">Permanent unconsciousness (PVS)</span><span class="pill">End-stage dementia</span><span class="pill">All of these</span></div>
+    <div class="cell fill cj"></div><div class="cell fill cw"></div>
+  </div>
+
+  <div class="row">
+    <div class="cell q">CPR / resuscitation<span class="sm">If your heart or breathing stops</span></div>
+    <div class="cell opts"><span class="pill">Attempt CPR</span><span class="pill">Do Not Resuscitate (DNR)</span><span class="pill">Depends on condition</span></div>
+    <div class="cell fill cj"></div><div class="cell fill cw"></div>
+  </div>
+
+  <div class="row">
+    <div class="cell q">Mechanical ventilation<span class="sm">A breathing machine</span></div>
+    <div class="cell opts"><span class="pill">Yes, long-term</span><span class="pill">Time-limited trial only</span><span class="pill">Decline</span></div>
+    <div class="cell fill cj"></div><div class="cell fill cw"></div>
+  </div>
+
+  <div class="row">
+    <div class="cell q">Dialysis<span class="sm">Kidney support</span></div>
+    <div class="cell opts"><span class="pill">Yes</span><span class="pill">Trial period</span><span class="pill">Decline</span></div>
+    <div class="cell fill cj"></div><div class="cell fill cw"></div>
+  </div>
+
+  <div class="row flagrow">
+    <div class="cell q">Artificial nutrition &amp; hydration<span class="sm">Feeding tube / IV fluids</span><span class="nyflag">NY needs your answer here</span></div>
+    <div class="cell opts"><span class="pill">Provide</span><span class="pill">Time-limited trial</span><span class="pill">Withhold / withdraw</span></div>
+    <div class="cell fill cj"></div><div class="cell fill cw"></div>
+  </div>
+
+  <div class="row">
+    <div class="cell q">Antibiotics &amp; other treatment<span class="sm">In a terminal state</span></div>
+    <div class="cell opts"><span class="pill">Treat fully</span><span class="pill">Comfort-focused only</span></div>
+    <div class="cell fill cj"></div><div class="cell fill cw"></div>
+  </div>
+
+  <div class="row">
+    <div class="cell q">Comfort / pain priority<span class="sm">Relief even if it may hasten death</span></div>
+    <div class="cell opts"><span class="pill">Prioritize comfort</span><span class="pill">Prioritize longevity</span></div>
+    <div class="cell fill cj"></div><div class="cell fill cw"></div>
+  </div>
+
+  <div class="row">
+    <div class="cell q">Preferred setting<span class="sm">Where you'd want to be</span></div>
+    <div class="cell opts"><span class="pill">Home / hospice</span><span class="pill">Hospital</span><span class="pill">No preference</span></div>
+    <div class="cell fill cj"></div><div class="cell fill cw"></div>
+  </div>
+
+  <div class="row">
+    <div class="cell q">Organ &amp; tissue donation</div>
+    <div class="cell opts"><span class="pill">Yes, any needed</span><span class="pill">Specific organs only</span><span class="pill">No</span></div>
+    <div class="cell fill cj"></div><div class="cell fill cw"></div>
+  </div>
+
+  <div class="row">
+    <div class="cell q">Faith / spiritual wishes<span class="sm">Rites, clergy, observances</span></div>
+    <div class="cell opts"><span class="pill">Note any</span></div>
+    <div class="cell fill cj"></div><div class="cell fill cw"></div>
+  </div>
+</div>
+
+<div class="values">
+  <h2>Values statement — the most useful part</h2>
+  <p>A few sentences on what a meaningful life and an acceptable quality of life mean to you. This guides your agent through situations the checklist above never anticipated — the thing they'll actually read at the bedside.</p>
+  <div class="vbox">
+    <div class="vcard j"><div class="vh">Person A</div><div class="vf"></div></div>
+    <div class="vcard w"><div class="vh">Person B</div><div class="vf"></div></div>
+  </div>
+</div>
+
+<footer>Educational worksheet — not legal advice and not a legal instrument. Completed answers inform the optional wishes section of a New York health care proxy or living will, finalized with a licensed attorney. A DNR or MOLST is a separate clinical order signed with a physician when medically relevant.</footer>
+</div>
+</body>
+</html>
