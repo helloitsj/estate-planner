@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The life-state timeline — who decides what, and when — New York</title>
+<meta name="description" content="Drag through six life states and watch each New York estate instrument switch from dormant to active to ended, and see who holds each decision. Educational only — not legal advice.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/base.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="shell">
+
+  <nav class="rail" aria-label="Life states">
+    <a class="brand" href="/"><b>Who decides what, and&nbsp;when</b><span>New York · educational</span></a>
+    <p class="raillab">The arc</p>
+    <a class="railitem on" href="#S0" data-r="0"><span class="rc">S0</span><span>Both well</span></a>
+    <a class="railitem"    href="#S1" data-r="1"><span class="rc">S1</span><span>One loses capacity</span></a>
+    <a class="railitem"    href="#S2" data-r="2"><span class="rc">S2</span><span>Both incapacitated</span></a>
+    <a class="railitem"    href="#S3" data-r="3"><span class="rc">S3</span><span>First death</span></a>
+    <a class="railitem"    href="#S4" data-r="4"><span class="rc">S4</span><span>Both gone · kids minor</span></a>
+    <a class="railitem"    href="#S5" data-r="5"><span class="rc">S5</span><span>Both gone · kids adult</span></a>
+    <p class="railfoot">New York only.<br>Educational, <a href="/about/">not legal advice</a>.</p>
+  </nav>
+
+  <main class="col" id="main">
+    <header class="pagehead">
+      <p class="eyebrow">New York · The arc</p>
+      <h1>Who decides what, and when</h1>
+      <p class="sub">Drag through the life states. Every instrument below updates to show whether it is dormant, operative, or finished — and who actually holds each decision at that moment. This is a married or partnered household with minor children.</p>
+    </header>
+
+    <p class="disclaimer"><strong>Educational information, not legal advice.</strong> Describes how New York instruments generally operate. It is not a legal instrument, does not account for any individual situation, and law varies by state and changes over time. Consult a licensed New York attorney.</p>
+
+    <p class="hint" style="text-align:left;margin:0 2px 22px;">
+      <span class="pill a">Active</span> operative and controlling &nbsp;
+      <span class="pill d">Dormant</span> drafted, not yet operative &nbsp;
+      <span class="pill t">Ended</span> authority has terminated
+    </p>
+
+    <!-- ENHANCED: scrubber + single live readout (revealed only if JS runs) -->
+    <div id="interactive" hidden>
+      <div class="scrub">
+        <p class="scrublab">Move through the arc</p>
+        <div class="track track--std" id="track" role="slider" tabindex="0"
+             aria-valuemin="0" aria-valuemax="5" aria-valuenow="0"
+             aria-label="Life state" aria-valuetext="Both spouses alive and competent">
+          <div class="track__rail"></div>
+          <div class="track__fill" id="fill"></div>
+          <div class="track__knob" id="knob"></div>
+        </div>
+        <div class="ticks" id="ticks"></div>
+        <p class="hint">Drag the handle, click a label, or use <kbd>←</kbd> <kbd>→</kbd></p>
+      </div>
+
+      <div class="state">
+        <div class="shead">
+          <span class="scode" id="tCode">S0</span>
+          <div>
+            <p class="stitle" id="tTitle">Both spouses alive &amp; competent</p>
+            <p class="sdesc" id="tDesc">Everything is drafted but dormant; each spouse runs their own life.</p>
+          </div>
+        </div>
+        <div class="readout">
+          <table>
+            <caption>Instrument status</caption>
+            <thead>
+              <tr><th scope="col">Instrument</th><th scope="col">Status</th><th scope="col">What that means here</th></tr>
+            </thead>
+            <tbody id="tRows"></tbody>
+          </table>
+        </div>
+        <div class="decides">
+          <div class="dcell"><p class="dlab">Medical</p><p class="dval" id="dMed"></p></div>
+          <div class="dcell"><p class="dlab">Money / property</p><p class="dval" id="dMon"></p></div>
+          <div class="dcell"><p class="dlab">The children</p><p class="dval" id="dKid"></p></div>
+        </div>
+        <div class="flag" id="tFlag" hidden>
+          <h3 id="tFlagH"></h3>
+          <p id="tFlagP"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATIC FALLBACK: all six states, always in the HTML. Works with no JS
+         and with CSS disabled; also what prints. JS hides this when it runs. -->
+    <div id="staticStates" class="static-states">
+
+      <div class="state" id="S0">
+        <div class="shead"><span class="scode">S0</span><div><p class="stitle">Both spouses alive &amp; competent</p><p class="sdesc">Everything is drafted but dormant; each spouse runs their own life.</p></div></div>
+        <div class="srows">
+          <div class="k">Medical</div><div class="v">Each spouse decides for themselves.</div>
+          <div class="k">Money / property</div><div class="v">Each decides. Both are co-trustees and can amend or revoke the trust at any time.</div>
+          <div class="k">The children</div><div class="v">The parents parent.</div>
+          <div class="k">Instruments</div><div class="v"><span class="pill d">Proxy dormant</span> <span class="pill d">POA dormant</span> <span class="pill d">Will dormant</span> <span class="pill a">Trust active</span> <span class="pill d">Guardianship dormant</span></div>
+        </div>
+      </div>
+
+      <div class="state" id="S1">
+        <div class="shead"><span class="scode">S1</span><div><p class="stitle">One spouse incapacitated, the other well</p><p class="sdesc">Only the incapacitated spouse&rsquo;s documents wake up. It reads the same whichever spouse it is.</p></div></div>
+        <div class="srows">
+          <div class="k">Medical</div><div class="v">The well spouse decides for the incapacitated one as primary health care agent.</div>
+          <div class="k">Money / property</div><div class="v">The well spouse acts as primary POA agent and carries the trust as sole trustee.</div>
+          <div class="k">The children</div><div class="v">The well spouse parents normally.</div>
+          <div class="k">Instruments</div><div class="v"><span class="pill a">Proxy active</span> <span class="pill a">POA active</span> <span class="pill d">Will dormant</span> <span class="pill a">Trust active</span> <span class="pill d">Guardianship dormant</span></div>
+        </div>
+      </div>
+
+      <div class="state" id="S2">
+        <div class="shead"><span class="scode">S2</span><div><p class="stitle">Both incapacitated at once</p><p class="sdesc">Alive, neither can decide. This is the state the backup chains exist for.</p></div></div>
+        <div class="srows">
+          <div class="k">Medical</div><div class="v">Health agent 2 decides for each spouse, then health agent 3. One agent at a time — New York bars co-agents.</div>
+          <div class="k">Money / property</div><div class="v">POA agent 2, then agent 3. For the trust, the successor trustee line takes over.</div>
+          <div class="k">The children</div><div class="v">Only a standby guardian designation covers this. A will does not.</div>
+          <div class="k">Instruments</div><div class="v"><span class="pill a">Proxy active</span> <span class="pill a">POA active</span> <span class="pill d">Will dormant</span> <span class="pill a">Trust active</span> <span class="pill d">Guardianship standby only</span></div>
+        </div>
+        <div class="flag">
+          <h3>The gap in this state</h3>
+          <p>A guardian named in a will takes effect at death — not while a parent is alive but incapacitated. New York requires a separate standby guardian designation (SCPA 1726) that operates on incapacity. Without one, nobody holds clean legal authority over the children until a court acts.</p>
+        </div>
+      </div>
+
+      <div class="state" id="S3">
+        <div class="shead"><span class="scode">S3</span><div><p class="stitle">One spouse dies, the other survives</p><p class="sdesc">The deceased spouse&rsquo;s lifetime papers switch off and their will switches on.</p></div></div>
+        <div class="srows">
+          <div class="k">Medical</div><div class="v">The surviving spouse decides for themselves.</div>
+          <div class="k">Money / property</div><div class="v">The surviving spouse continues as sole trustee. The pour-over will sweeps stray assets into the trust.</div>
+          <div class="k">The children</div><div class="v">The surviving spouse parents. No guardian is needed while a parent lives.</div>
+          <div class="k">Instruments</div><div class="v"><span class="pill t">Proxy ended</span> <span class="pill t">POA ended</span> <span class="pill a">Will active</span> <span class="pill a">Trust active</span> <span class="pill d">Guardianship dormant</span></div>
+        </div>
+      </div>
+
+      <div class="state" id="S4">
+        <div class="shead"><span class="scode">S4</span><div><p class="stitle">Both parents gone — children are minors</p><p class="sdesc">Money and custody are often split between two people on purpose.</p></div></div>
+        <div class="srows">
+          <div class="k">Medical</div><div class="v">No agent exists. Authority ended at death.</div>
+          <div class="k">Money / property</div><div class="v">Trustee 1, then 2, then 3 pays from the trust under the HEMS standard — health, education, maintenance, support.</div>
+          <div class="k">The children</div><div class="v">Guardian 1, then 2, then 3 raises the children. The guardian does not control the money.</div>
+          <div class="k">Instruments</div><div class="v"><span class="pill t">Proxy ended</span> <span class="pill t">POA ended</span> <span class="pill a">Will active</span> <span class="pill a">Trust irrevocable</span> <span class="pill a">Guardianship active</span></div>
+        </div>
+      </div>
+
+      <div class="state" id="S5">
+        <div class="shead"><span class="scode">S5</span><div><p class="stitle">Both parents gone — children are adults</p><p class="sdesc">Custody is over. The trust is the only thing still running.</p></div></div>
+        <div class="srows">
+          <div class="k">Medical</div><div class="v">No agent exists.</div>
+          <div class="k">Money / property</div><div class="v">The trustee line continues. Distributions release on the schedule the trust sets.</div>
+          <div class="k">The children</div><div class="v">Guardianship ended at the youngest child&rsquo;s eighteenth birthday.</div>
+          <div class="k">Instruments</div><div class="v"><span class="pill t">Proxy ended</span> <span class="pill t">POA ended</span> <span class="pill t">Will closed</span> <span class="pill a">Trust active</span> <span class="pill t">Guardianship ended</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="disclaimer" style="margin-top:34px;">Chains shown are illustrative — every plan names different people in different orders. New York specific; other states differ, including on standby guardianship.</p>
+
+    <footer>New York only · <a href="/sources/">Sources</a> · <a href="/about/">About</a> · <a href="/">Home</a> · Last updated <time class="mono" datetime="2026-07-23">2026-07-23</time></footer>
+  </main>
+</div>
+<script src="/assets/js/timeline.js"></script>
+</body>
+</html>
