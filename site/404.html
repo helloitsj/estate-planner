@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page not found — Who decides what, and when</title>
+<!-- Self-contained: served at any depth by GitHub Pages, so no external assets. -->
+<style>
+  :root{--paper:#f3f4f1;--ink:#202830;--ink-soft:#55606a;--line:#d9dcd6;--accent:#b0812a;}
+  *{box-sizing:border-box;}
+  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
+    background:var(--paper);color:var(--ink);
+    font-family:"IBM Plex Sans",system-ui,-apple-system,sans-serif;line-height:1.55;padding:24px;}
+  .box{max-width:34rem;}
+  .code{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 14px;}
+  h1{font-family:"Spectral",Georgia,serif;font-weight:600;font-size:34px;line-height:1.1;
+    letter-spacing:-.01em;margin:0 0 12px;}
+  p{color:var(--ink-soft);font-size:15px;margin:0 0 24px;}
+  a.btn{display:inline-block;font-size:14px;font-weight:500;background:var(--ink);color:var(--paper);
+    border-radius:7px;padding:11px 20px;text-decoration:none;margin-right:10px;}
+  a.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);}
+</style>
+</head>
+<body>
+  <div class="box">
+    <p class="code">Error 404</p>
+    <h1>That page isn't here</h1>
+    <p>The link may be out of date — this site was reorganized so each state lives under its own path (for example, the New York timeline is now at <span style="font-family:monospace">/ny/timeline/</span>). Educational information only, not legal advice.</p>
+    <p><a class="btn" id="home" href="/">Go to the homepage</a><a class="btn ghost" id="ny" href="/ny/">New York</a></p>
+  </div>
+  <script>
+    // Resolve the site root whether hosted at a subpath (GitHub Pages project
+    // site) or a root domain (Cloudflare), without hardcoding either.
+    (function(){
+      var base = "/";
+      if (/\.github\.io$/.test(location.hostname)) {
+        var m = location.pathname.match(/^(\/[^\/]+\/)/);
+        if (m) base = m[1];              // project subpath, e.g. /estate-planner/
+      }
+      document.getElementById("home").href = base;
+      document.getElementById("ny").href = base + "ny/";
+    })();
+  </script>
+</body>
+</html>

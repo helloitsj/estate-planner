@@ -271,6 +271,11 @@ footer a{color:var(--ink-soft);}
 .wordmark{text-decoration:none; display:block; line-height:1.1;}
 .wordmark b{font-family:var(--serif); font-weight:600; font-size:18px; letter-spacing:-.01em; color:var(--ink); display:block;}
 .wordmark span{font-family:var(--mono); font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft);}
+.masthead__right{display:flex; align-items:center; gap:16px;}
+.statechip{font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--accent); background:var(--brass-bg); border:1px solid var(--brass-line);
+  border-radius:5px; padding:5px 10px; text-decoration:none; white-space:nowrap;}
+.statechip:hover{background:#f6ecd4;}
 .topnav{display:flex; align-items:center; gap:4px; flex-wrap:wrap;}
 .topnav a{font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase;
   color:var(--ink-soft); text-decoration:none; padding:7px 10px; border-radius:5px;
@@ -312,6 +317,7 @@ footer a{color:var(--ink-soft);}
   .static-states .srows .k{border-right:none; padding-bottom:2px;}
   .static-states .srows .v{padding-top:4px;}
   .masthead__in{flex-wrap:wrap; gap:10px; padding:12px 16px;}
+  .masthead__right{width:100%; flex-wrap:wrap; gap:10px;}
   .topnav{width:100%; flex-wrap:nowrap; overflow-x:auto; gap:2px; -webkit-overflow-scrolling:touch;}
   .topnav a{padding:6px 8px; white-space:nowrap;}
   .sitefoot__in{grid-template-columns:1fr; gap:20px; padding:26px 16px 6px;}

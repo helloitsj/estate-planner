@@ -97,28 +97,65 @@ harder than most.
 
 ---
 
-## Layout
+## Layout — state is the first path segment
 
-`/site` is the deployable root (drag it to Cloudflare Pages). JSON lives inside
-it so `fetch('/data/…')` resolves.
+`/site` is the deployable root (drag it to Cloudflare Pages). Every
+jurisdiction-specific page and its data live under `/{state}/`; global pages
+(the state hub, About) and shared assets live at the root.
 
     site/
-      index.html                     /            Landing
-      timeline/index.html            /timeline    Life-state timeline (the spine)
-      prepare/index.html             /prepare     Decision tree -> printable agenda (shape 1)
-      explainers/
-        poa-and-proxy-end-at-death/  explainer 1
-        guardianship-and-incapacity/ explainer 2 (SCPA 1726)
-      sources/index.html             /sources
-      about/index.html               /about
-      assets/css/base.css            the ONE shared stylesheet — no duplication
-      assets/js/                     landing.js, timeline.js, tree.js, prep.js
-      data/figures.json              all numbers, with as-of dates
-      data/tree.json                 decision tree as pure data
+      index.html                       /              State hub — "choose your state"
+      about/index.html                 /about         Global (about the project)
+      assets/css/base.css              the ONE shared stylesheet — no duplication
+      assets/js/                       landing.js, timeline.js, tree.js, prep.js (shared)
+      data/
+        ny/figures.json                /data/ny/…     numbers, per state, with as-of dates
+        ny/tree.json                                  decision tree as pure data, per state
+      ny/
+        index.html                     /ny/           NY landing
+        timeline/index.html            /ny/timeline/  Life-state timeline (the spine)
+        prepare/index.html             /ny/prepare/   Decision tree -> printable agenda (shape 1)
+        explainers/index.html          /ny/explainers/  Guides index
+        explainers/poa-and-proxy-end-at-death/   guide 1
+        explainers/guardianship-and-incapacity/  guide 2 (SCPA 1726)
+        sources/index.html             /ny/sources/
+
+**Paths are relative** (not root-absolute), so the site works both at a subpath
+(GitHub Pages project site) and at a root domain (Cloudflare). Prefix depth:
+root pages none, `/{state}/` one `../`, `/{state}/x/` two, `/{state}/x/y/` three.
+The masthead carries a wordmark (→ hub), a state chip "New York ▾" (→ hub, to
+switch), and the primary nav; the state chip is omitted on global pages.
 
 **Local preview needs a static server** (not `file://`) because browsers block
-`fetch` of local files. Every interactive view also ships a static, no-JS
-fallback that works with CSS disabled.
+`fetch` of local files. There is no Python here — use the Node static server in
+the scratchpad. Every interactive view also ships a static, no-JS fallback that
+works with CSS disabled.
+
+## Multi-state content model (agnostic-first, nuances → the attorney)
+
+Guiding principle from the author: **provide as much state-agnostic information
+as possible, and let nuances branch off to "consult a lawyer."** Content sits in
+three layers by how state-dependent it is:
+
+- **Layer A — durable mechanisms (state-agnostic).** "A POA terminates at
+  death." "A will's guardian operates at death, not incapacity." The S0–S5
+  framework itself. Most of the differentiated content; author it once.
+- **Layer B — state overlays.** Citations (NY SCPA 1726 vs. other states'
+  statutes or none), estate-tax figures/cliffs, terminology ("health care
+  proxy" vs "advance directive"; "executor" vs "personal representative"). Some
+  states change the *shape* (no estate tax → drop the tax guide; community
+  property → add a spousal-property section), so the model must allow per-state
+  inclusion/exclusion of whole blocks, not just value substitution.
+- **Layer C — per-state data.** `data/{state}/figures.json`, `tree.json`, and
+  (planned) `terms.json` mapping canonical concept → that state's word.
+
+**Build-step trigger:** hand-authored static HTML is fine for NY + 1–2 states.
+At the ~3rd state, adopt a tiny static-site generator (e.g. Eleventy) that
+stamps shared layout + per-state data into plain static HTML — still a static
+folder dragged to Cloudflare, still no backend, still no-JS-friendly. That
+relaxes "no build step" but keeps "static site, no server," which is the goal
+that mattered. Until then, keep state-specific strings tokenizable so the switch
+stays mechanical.
 
 ### tree.json shape
 One flat `nodes` map. A `question` node has `options[]`; each option carries
