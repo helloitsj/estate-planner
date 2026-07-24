@@ -71,6 +71,29 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible{
 .railfoot a{color:var(--ink-soft);}
 
 .col{padding:44px 52px 90px; max-width:820px; width:100%;}
+/* content pages have no spine rail: center the column */
+.col.solo{margin:0 auto; max-width:780px;}
+.prose h2{margin-top:36px;}
+.prose p{max-width:68ch; margin:0 0 16px;}
+.prose ul{max-width:68ch; padding-left:20px; margin:0 0 16px;}
+.prose li{margin:5px 0;}
+.prose a{color:var(--accent);}
+.leadp{font-size:17px; line-height:1.5; color:var(--ink); max-width:64ch; margin:0 0 22px;}
+.inprogress{background:var(--dormant-bg); border:1px solid var(--dormant-line);
+  border-radius:8px; padding:14px 18px; margin:22px 0; font-size:13.5px; color:var(--ink-soft);
+  display:flex; gap:10px; align-items:baseline;}
+.inprogress .tagm{font-family:var(--mono); font-size:9.5px; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--ink-soft); border:1px solid var(--dormant-line); border-radius:4px; padding:2px 7px; flex:none;}
+table.sources{width:100%; border-collapse:collapse; margin:8px 0 8px; font-size:13.5px;}
+table.sources caption{text-align:left; font-family:var(--mono); font-size:10.5px; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--ink-soft); padding:0 0 10px;}
+table.sources th{text-align:left; font-family:var(--mono); font-size:10px; letter-spacing:.04em;
+  text-transform:uppercase; color:var(--ink-soft); font-weight:500; padding:8px 12px; border-bottom:1px solid var(--line);}
+table.sources td{padding:10px 12px; border-bottom:1px solid #eef0ec; vertical-align:top;}
+table.sources tr:last-child td{border-bottom:none;}
+table.sources .todo{font-family:var(--mono); font-size:11px; color:var(--term);
+  background:var(--term-bg); border:1px solid var(--term-line); border-radius:4px; padding:1px 7px;}
+table.sources .wrap-mono{font-family:var(--mono); font-size:11px; word-break:break-all;}
 
 /* ---- 4. Header / hero typography ----------------------------- */
 .eyebrow{font-family:var(--mono); font-size:10.5px; letter-spacing:.18em;
@@ -241,6 +264,36 @@ footer{margin-top:26px; padding-top:18px; border-top:1px solid var(--line);
   font-size:11.5px; color:var(--ink-soft);}
 footer a{color:var(--ink-soft);}
 
+/* ---- 12b. Site chrome: masthead + full-width footer ---------- */
+.masthead{background:var(--panel); border-bottom:1px solid var(--line);}
+.masthead__in{max-width:1180px; margin:0 auto; display:flex; align-items:center;
+  justify-content:space-between; gap:20px; padding:14px 22px;}
+.wordmark{text-decoration:none; display:block; line-height:1.1;}
+.wordmark b{font-family:var(--serif); font-weight:600; font-size:18px; letter-spacing:-.01em; color:var(--ink); display:block;}
+.wordmark span{font-family:var(--mono); font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft);}
+.topnav{display:flex; align-items:center; gap:4px; flex-wrap:wrap;}
+.topnav a{font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--ink-soft); text-decoration:none; padding:7px 10px; border-radius:5px;
+  border-bottom:2px solid transparent; transition:color .18s, background .15s, border-color .18s;}
+.topnav a:hover{color:var(--ink); background:#fbfcfa;}
+.topnav a[aria-current="page"]{color:var(--accent); border-bottom-color:var(--accent);}
+
+.sitefoot{border-top:2px solid var(--ink); background:var(--panel); margin-top:40px;}
+.sitefoot__in{max-width:1180px; margin:0 auto; padding:34px 22px 8px;
+  display:grid; grid-template-columns:1.4fr 1fr; gap:28px;}
+.sitefoot__brand b{font-family:var(--serif); font-weight:600; font-size:17px; color:var(--ink); display:block; margin-bottom:6px;}
+.sitefoot__brand p{margin:0; font-size:12.5px; color:var(--ink-soft); max-width:44ch; line-height:1.5;}
+.sitefoot__nav{display:grid; grid-template-columns:1fr 1fr; gap:2px 18px; align-content:start;}
+.sitefoot__nav a{font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--ink-soft); text-decoration:none; padding:5px 0;}
+.sitefoot__nav a:hover{color:var(--accent);}
+.sitefoot__legal{max-width:1180px; margin:0 auto; padding:18px 22px 30px;
+  border-top:1px solid var(--line); margin-top:22px;}
+.sitefoot__legal p{margin:0 0 8px; font-size:12px; color:var(--ink-soft); line-height:1.5; max-width:88ch;}
+.sitefoot__legal strong{color:var(--ink);}
+.sitefoot__legal .meta{font-family:var(--mono); font-size:11px; letter-spacing:.03em; color:var(--ink-soft); margin:0;}
+.sitefoot__legal .meta a{color:var(--ink-soft);}
+
 /* ---- 13. Responsive ------------------------------------------ */
 @media (max-width:860px){
   .shell{grid-template-columns:1fr;}
@@ -258,6 +311,11 @@ footer a{color:var(--ink-soft);}
   .static-states .srows{grid-template-columns:1fr;}
   .static-states .srows .k{border-right:none; padding-bottom:2px;}
   .static-states .srows .v{padding-top:4px;}
+  .masthead__in{flex-wrap:wrap; gap:10px; padding:12px 16px;}
+  .topnav{width:100%; flex-wrap:nowrap; overflow-x:auto; gap:2px; -webkit-overflow-scrolling:touch;}
+  .topnav a{padding:6px 8px; white-space:nowrap;}
+  .sitefoot__in{grid-template-columns:1fr; gap:20px; padding:26px 16px 6px;}
+  .sitefoot__legal{padding:16px 16px 26px;}
 }
 @media (max-width:400px){
   .col{padding:26px 14px 60px;}
@@ -269,8 +327,10 @@ footer a{color:var(--ink-soft);}
 @media print{
   body{background:#fff;}
   .shell{display:block; max-width:none;}
-  .rail,.skip,.scrub,.grabme,.hint{display:none !important;}
+  .rail,.skip,.scrub,.grabme,.hint,.masthead,.sitefoot__nav{display:none !important;}
   .col{padding:0; max-width:none;}
+  .sitefoot{border-top:1px solid var(--line); margin-top:24px;}
+  .sitefoot__in{display:block; padding:12px 0 0;}
   .card,.state,.prep,.demo{box-shadow:none; break-inside:avoid;}
   *{ -webkit-print-color-adjust:exact; print-color-adjust:exact;}
 }

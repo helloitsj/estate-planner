@@ -1,0 +1,56 @@
+{
+  "_comment": "Single source of truth for every dollar figure, threshold, percentage, citation, and deadline. NEVER write a value from memory. Fetch the primary source (irs.gov, tax.ny.gov, nysenate.gov), then fill value, tax_year, as_of (YYYY-MM-DD date checked), source, and source_url. Until verified, value stays null and status is TODO(verify). Pages read from this file and render a visible 'as of' date. See CLAUDE.md.",
+  "figures": {
+    "ny_basic_exclusion": {
+      "label": "New York estate tax basic exclusion amount",
+      "value": null,
+      "unit": "USD",
+      "tax_year": null,
+      "as_of": null,
+      "status": "TODO(verify)",
+      "source": "New York State Department of Taxation and Finance",
+      "source_url": "https://www.tax.ny.gov/",
+      "note": "NY has its own estate tax, separate from and far lower than the federal exclusion, with a 'cliff' — the mechanism, not the number, is the durable content."
+    },
+    "ny_estate_tax_cliff_multiplier": {
+      "label": "New York estate tax cliff (share of exclusion above which the full estate is taxed)",
+      "value": null,
+      "unit": "ratio",
+      "tax_year": null,
+      "as_of": null,
+      "status": "TODO(verify)",
+      "source": "New York State Department of Taxation and Finance",
+      "source_url": "https://www.tax.ny.gov/",
+      "note": "Above a threshold multiple of the exclusion, the exclusion phases out entirely and the whole estate is taxed. Verify the current multiple and mechanics."
+    },
+    "federal_estate_gift_exclusion": {
+      "label": "Federal unified estate and gift tax exclusion (per person)",
+      "value": null,
+      "unit": "USD",
+      "tax_year": null,
+      "as_of": null,
+      "status": "TODO(verify)",
+      "source": "Internal Revenue Service",
+      "source_url": "https://www.irs.gov/"
+    },
+    "federal_gift_annual_exclusion": {
+      "label": "Federal gift tax annual exclusion (per recipient, per year)",
+      "value": null,
+      "unit": "USD",
+      "tax_year": null,
+      "as_of": null,
+      "status": "TODO(verify)",
+      "source": "Internal Revenue Service",
+      "source_url": "https://www.irs.gov/"
+    }
+  },
+  "citations": {
+    "scpa_1726": {
+      "label": "NY SCPA § 1726 — standby guardian designation",
+      "as_of": null,
+      "status": "TODO(verify)",
+      "source": "New York Consolidated Laws, Surrogate's Court Procedure Act",
+      "source_url": "https://www.nysenate.gov/legislation/laws/SCP/1726"
+    }
+  }
+}
