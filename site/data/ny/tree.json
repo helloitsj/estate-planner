@@ -1,0 +1,186 @@
+{
+  "_comment": "Decision tree as PURE DATA. Household shape 1: married or partnered, minor children, New York. One flat `nodes` map. A `question` node has options[]; each option carries either `next` (id of another question) or `terminal` (id of an ending node). Endings are `guidance` (MUST have explainers[], attorneyQuestions[], worthConfirming[]) or `scopeExit` (MUST have body + attorneyQuestions[]). Adding a branch = editing this file only; the renderer never changes. THE RULE: every terminal ends in questions for an attorney, never a conclusion. No node grades a plan. Banned: 'you should/need', 'we recommend', 'in your case', 'your plan is missing'. hrefs are relative to /ny/prepare/. maxDepth asserted at load.",
+  "meta": {
+    "state": "ny",
+    "shape": "married-or-partnered-minor-children",
+    "shapeLabel": "Married or partnered, with minor children",
+    "maxDepth": 5,
+    "start": "q_scope",
+    "updated": "2026-07-24"
+  },
+  "nodes": {
+
+    "q_scope": {
+      "type": "question",
+      "question": "Before we begin — does any of this describe your situation?",
+      "note": "Any one of these makes a plan complex enough that it belongs with an attorney from the start. Picking one isn't a dead end. It's the tool pointing you to the right conversation.",
+      "agendaLabel": "Complexity flags",
+      "options": [
+        { "label": "One of us owns a business or professional practice", "fact": "A spouse/partner owns a business or practice", "terminal": "x_business" },
+        { "label": "We own real estate in another state", "fact": "Real property outside New York", "terminal": "x_out_of_state" },
+        { "label": "One of us is not a U.S. citizen", "fact": "A spouse/partner is not a U.S. citizen", "terminal": "x_noncitizen_spouse" },
+        { "label": "A child or beneficiary has a disability or special needs", "fact": "A beneficiary has a disability or special needs", "terminal": "x_special_needs" },
+        { "label": "Our combined estate may be large enough to owe estate tax", "fact": "Combined estate may reach the estate-tax threshold", "terminal": "x_taxable" },
+        { "label": "None of these", "fact": "None of the common complexity flags", "next": "q_agents" }
+      ]
+    },
+
+    "q_agents": {
+      "type": "question",
+      "question": "If one of you couldn't make your own medical and financial decisions for a while, has each of you named someone to step in — and a backup if that person can't serve?",
+      "note": "This is about being alive but unable to decide, not about death.",
+      "agendaLabel": "Decision-makers during incapacity",
+      "options": [
+        { "label": "Yes — each of us, each with a named backup", "fact": "Health care agent and financial agent named for each, with backups", "next": "q_guardian" },
+        { "label": "We named each other, but no backups", "fact": "Each named the other as agent; no backup named", "terminal": "t_incapacity_agents" },
+        { "label": "Not yet, or not sure", "fact": "Decision-makers during incapacity not yet settled", "terminal": "t_incapacity_agents" }
+      ]
+    },
+
+    "q_guardian": {
+      "type": "question",
+      "question": "If both of you were gone, have you decided who would raise your minor children?",
+      "agendaLabel": "Guardian for minor children (at death)",
+      "options": [
+        { "label": "Yes — a first choice and a backup", "fact": "Guardian chosen, with a backup", "next": "q_incapacity" },
+        { "label": "A first choice, but no backup", "fact": "Guardian chosen; no backup named", "next": "q_incapacity" },
+        { "label": "Not yet", "fact": "Guardian for minor children not yet chosen", "next": "q_incapacity" }
+      ]
+    },
+
+    "q_incapacity": {
+      "type": "question",
+      "question": "If you were both alive but unable to care for your children for a stretch — say, both hospitalized after one accident — have you named who steps in during that time?",
+      "note": "This is a different moment from the guardian in your will, which operates at death.",
+      "agendaLabel": "Care for children during joint incapacity",
+      "options": [
+        { "label": "Yes — handled separately from our wills", "fact": "Joint-incapacity caregiver addressed separately", "next": "q_money" },
+        { "label": "We assumed our wills cover it", "fact": "Assumed the will's guardian covers joint incapacity", "terminal": "t_guardianship" },
+        { "label": "No, or not sure", "fact": "Care during joint incapacity not addressed", "terminal": "t_guardianship" }
+      ]
+    },
+
+    "q_money": {
+      "type": "question",
+      "question": "Last piece: how the money reaches your children. Have you decided whether they receive it outright at certain ages, or through a trust that manages and protects it?",
+      "agendaLabel": "How children receive money",
+      "options": [
+        { "label": "Through a trust, with ages or terms chosen", "fact": "Children's money via trust; ages/terms chosen", "terminal": "t_childrens_money" },
+        { "label": "Outright at certain ages", "fact": "Children's money outright at set ages", "terminal": "t_childrens_money" },
+        { "label": "Haven't decided", "fact": "How children receive money not yet decided", "terminal": "t_childrens_money" }
+      ]
+    },
+
+    "t_incapacity_agents": {
+      "type": "guidance",
+      "title": "Naming decision-makers — and their backups",
+      "mechanism": "In New York, a health care proxy names one agent at a time — the state does not allow two people to serve together as co-agents on it. A power of attorney can name a successor to act if the first agent can't. Both instruments operate only while you are alive, and both end at death. If the first-named person is unavailable and no backup is named, authority can fall to no one until a court appoints someone.",
+      "explainers": [
+        { "label": "Why a power of attorney and a health care proxy both end at death", "href": "../explainers/poa-and-proxy-end-at-death/" },
+        { "label": "See the incapacity states on the timeline", "href": "../timeline/#S1" }
+      ],
+      "attorneyQuestions": [
+        "For each of us, who is the first agent under the health care proxy and under the power of attorney, and who is the named backup if that person can't serve?",
+        "Given that New York doesn't allow co-agents on a health care proxy, how should we order our choices rather than naming two people at once?"
+      ],
+      "worthConfirming": [
+        "Worth confirming: whether each health care proxy and power of attorney names at least one backup, so authority doesn't rest on a single person being available.",
+        "Worth confirming: whether the people currently named are still the people you would choose today."
+      ]
+    },
+
+    "t_guardianship": {
+      "type": "guidance",
+      "title": "Guardianship reaches two different moments — and one instrument covers only one of them",
+      "mechanism": "In New York, a guardian named in a will operates at death. A parent who is alive but temporarily unable to care for a child is a separate situation, addressed by a separate instrument: a standby guardian designation under SCPA 1726, which can be written to operate on incapacity rather than at death. Without one, if both parents are alive but unable to parent, no one holds clean legal authority over the children until a court acts.",
+      "explainers": [
+        { "label": "Why a will's guardian doesn't operate during incapacity", "href": "../explainers/guardianship-and-incapacity/" },
+        { "label": "See the both-incapacitated state on the timeline", "href": "../timeline/#S2" }
+      ],
+      "attorneyQuestions": [
+        "Does our plan cover who parents our children if we are both alive but incapacitated, not only if we die?",
+        "Would a standby guardian designation under SCPA 1726 fit our situation, and who should it name?"
+      ],
+      "worthConfirming": [
+        "Worth confirming: whether the guardian named in each will and any standby designation name the same people, in the same order.",
+        "Worth confirming: whether any standby designation is written to end when either parent recovers, so it lends authority rather than transferring it."
+      ]
+    },
+
+    "t_childrens_money": {
+      "type": "guidance",
+      "title": "Who raises the children and who controls their money can be two separate roles",
+      "mechanism": "In New York, a guardian raises the children but does not automatically control the money left for them. A trustee manages and disburses those funds under the trust's terms — often a 'health, education, maintenance, and support' standard. The two roles are frequently, and deliberately, held by different people. When and how children receive money outright is set by the trust, and the common patterns — staggered ages, a protective lifetime trust, or a single 'pot' held until the youngest reaches a set age — trade autonomy against protection rather than being right or wrong.",
+      "explainers": [
+        { "label": "See the both-parents-gone state on the timeline", "href": "../timeline/#S4" }
+      ],
+      "attorneyQuestions": [
+        "Should the person who raises our children and the person who manages their inheritance be the same person or two different people?",
+        "Which distribution pattern fits our family — staggered ages, a protective lifetime trust, or a common pot held until the youngest reaches a set age?"
+      ],
+      "worthConfirming": [
+        "Worth confirming: whether the plan names a trustee, and a backup trustee, separately from the guardian.",
+        "Worth confirming: whether the ages or terms for distributions are written into the trust rather than left to be decided later."
+      ]
+    },
+
+    "x_business": {
+      "type": "scopeExit",
+      "trigger": "business-interest",
+      "title": "This is where a walkthrough should hand off to your attorney",
+      "body": "A business or professional practice adds questions this tool doesn't cover — succession, a buy-sell agreement, valuation, and how the interest passes without disrupting the business. That is exactly what a first meeting with an attorney is for, so it's worth walking in with it named rather than working around it here.",
+      "attorneyQuestions": [
+        "How should my business interest pass at death or incapacity, and is a buy-sell or succession agreement in place?",
+        "Does owning the business change who should serve as my agent, executor, or trustee?"
+      ]
+    },
+
+    "x_out_of_state": {
+      "type": "scopeExit",
+      "trigger": "out-of-state-property",
+      "title": "This is a question for your attorney, not this tool",
+      "body": "Real property in a second state can require a separate probate under that state's law, and this walkthrough is built for New York only. That's precisely the kind of thing a first meeting should spend its time on, so it's worth naming up front.",
+      "attorneyQuestions": [
+        "Does my out-of-state property expose my estate to a second (ancillary) probate, and can a trust avoid it?",
+        "Which state's law governs that property, and does it change who inherits it?"
+      ]
+    },
+
+    "x_noncitizen_spouse": {
+      "type": "scopeExit",
+      "trigger": "non-citizen-spouse",
+      "title": "This one belongs with an attorney from the start",
+      "body": "When a spouse is not a U.S. citizen, some of the usual protections between spouses work differently, and specialized planning tools exist for exactly this situation. It isn't a problem to solve here — it's a reason to have the conversation with an attorney who handles it.",
+      "attorneyQuestions": [
+        "How does my spouse's citizenship status affect what passes to them, and is a specialized trust appropriate for us?",
+        "Are there steps worth taking now, versus at a later date, given the citizenship situation?"
+      ]
+    },
+
+    "x_special_needs": {
+      "type": "scopeExit",
+      "trigger": "special-needs-beneficiary",
+      "title": "This deserves specialized attention, not a general walkthrough",
+      "body": "When a child or beneficiary has a disability or special needs, an ordinary inheritance can unintentionally affect eligibility for means-tested benefits. Planning for this uses specialized tools and belongs with an attorney experienced in it — which is a reason to seek that person out, not a shortcoming in your planning.",
+      "attorneyQuestions": [
+        "Would a supplemental or special-needs trust protect this beneficiary's eligibility for benefits while still providing for them?",
+        "How should gifts from relatives be directed so they don't unintentionally disrupt those benefits?"
+      ]
+    },
+
+    "x_taxable": {
+      "type": "scopeExit",
+      "trigger": "taxable-estate",
+      "title": "Once estate tax is in play, this is attorney territory",
+      "body": "New York has its own estate tax, separate from the federal one and with a 'cliff' — above a threshold, the exclusion can phase out entirely. The current figures live on the Sources page. When an estate may cross that line, the planning becomes tax planning, which is exactly what an attorney (often with an accountant) is for.",
+      "explainers": [
+        { "label": "Current estate-tax figures and when they were last verified", "href": "../sources/" }
+      ],
+      "attorneyQuestions": [
+        "Is our combined estate likely to owe New York estate tax, and does the cliff apply to us?",
+        "Are there planning steps — trusts, gifting, how assets are titled — that change the exposure?"
+      ]
+    }
+
+  }
+}

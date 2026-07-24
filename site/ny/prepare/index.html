@@ -39,22 +39,27 @@
 
   <p class="disclaimer"><strong>Educational information, not legal advice.</strong> This walkthrough never evaluates your situation or tells you what to do. Every path ends in questions to ask a licensed New York attorney, never a conclusion.</p>
 
-  <div class="inprogress"><span class="tagm">in progress</span> <span>The interactive walkthrough is being built. This page is a placeholder describing what it will do. In the meantime, the <a href="../timeline/">life-state timeline</a> covers the same ground you'll be answering questions about.</span></div>
+  <p class="leadp">This walkthrough is for a <strong>married or partnered household with minor children</strong>, in New York. At most five short questions, and every path ends in questions to raise with a licensed New York attorney — never a conclusion about your plan.</p>
+  <p><span class="privacy">◆ Your answers never leave this browser</span></p>
 
-  <h2>What it will produce</h2>
-  <p>Answer at most a handful of questions — no path longer than five — and the tool assembles a one-page agenda you can print and read across a table:</p>
-  <ul>
-    <li><strong>Household facts</strong> — the shape of your family, in your own words.</li>
-    <li><strong>Fiduciary candidates</strong> — the people you'd name as agent, executor, trustee, or guardian, and the order.</li>
-    <li><strong>An asset checklist</strong> — what exists to be planned around.</li>
-    <li><strong>Questions for your attorney</strong> — generated from your answers, phrased as questions, plus facts worth confirming.</li>
-  </ul>
+  <!-- interactive walkthrough mounts here (revealed only if JS runs and the data validates) -->
+  <div id="tree" hidden></div>
 
-  <h2>The privacy promise</h2>
-  <p>Your answers are stored only in your own browser, using local storage. Nothing is transmitted, nothing is put in the web address, and there is no server to send it to. A clear-my-answers button wipes it completely, and you'll see a visible reminder that your answers never leave this browser.</p>
+  <!-- static fallback: works with no JS and with CSS disabled -->
+  <div id="treeStatic">
+    <div class="inprogress"><span class="tagm">note</span> <span>The interactive version needs JavaScript. Its substance is right here: the questions it asks, and where each one leads.</span></div>
 
-  <h2>What it won't do</h2>
-  <p>It won't grade your plan, tell you what you need, or draft anything. It describes how the law works and hands the decisions that are yours to you and your attorney — as questions.</p>
+    <h2>First, five situations that belong with an attorney from the start</h2>
+    <p>If any of these apply, that's the tool pointing you to the right conversation, not a dead end: a business or professional practice, real estate in another state, a spouse who isn't a U.S. citizen, a child or beneficiary with a disability or special needs, or a combined estate large enough to owe <a href="../sources/">estate tax</a>. Each is a set of questions for an attorney.</p>
+
+    <h2>Otherwise, three questions</h2>
+    <ul>
+      <li><strong>Decision-makers during incapacity</strong> — has each of you named an agent, and a backup, for medical and financial decisions? See <a href="../explainers/poa-and-proxy-end-at-death/">why a power of attorney and a health care proxy end at death</a>.</li>
+      <li><strong>Guardianship</strong> — who raises your children if you're both gone, and, separately, who steps in if you're both alive but incapacitated? See <a href="../explainers/guardianship-and-incapacity/">the incapacity gap and SCPA 1726</a>.</li>
+      <li><strong>Children's money</strong> — outright at set ages or through a trust, and whether the person who raises them also controls the money. See the <a href="../timeline/#S4">both-parents-gone state</a> on the timeline.</li>
+    </ul>
+    <p>Each ends in questions to ask your attorney, plus facts worth confirming — never a verdict on your plan.</p>
+  </div>
 </main>
 
 <footer class="sitefoot">
@@ -77,5 +82,6 @@
     <p class="meta">New York only · Last updated <time datetime="2026-07-23">2026-07-23</time> · <a href="../../ny/sources/">Sources and last-verified dates</a></p>
   </div>
 </footer>
+<script src="../../assets/js/tree.js"></script>
 </body>
 </html>
