@@ -1,56 +1,77 @@
 {
-  "_comment": "Single source of truth for every dollar figure, threshold, percentage, citation, and deadline. NEVER write a value from memory. Fetch the primary source (irs.gov, tax.ny.gov, nysenate.gov), then fill value, tax_year, as_of (YYYY-MM-DD date checked), source, and source_url. Until verified, value stays null and status is TODO(verify). Pages read from this file and render a visible 'as of' date. See CLAUDE.md.",
+  "_comment": "Single source of truth for every dollar figure, threshold, percentage, citation, and deadline. NEVER write a value from memory. Each value is fetched from its primary source (irs.gov, tax.ny.gov, nysenate.gov) and carries value, tax_year, as_of (YYYY-MM-DD date checked), source, and source_url. Pages read from this file and render a visible 'as of' date. See CLAUDE.md.",
   "figures": {
     "ny_basic_exclusion": {
       "label": "New York estate tax basic exclusion amount",
-      "value": null,
+      "value": 7350000,
       "unit": "USD",
-      "tax_year": null,
-      "as_of": null,
-      "status": "TODO(verify)",
+      "tax_year": 2026,
+      "as_of": "2026-07-24",
+      "status": "verified",
       "source": "New York State Department of Taxation and Finance",
-      "source_url": "https://www.tax.ny.gov/",
-      "note": "NY has its own estate tax, separate from and far lower than the federal exclusion, with a 'cliff' — the mechanism, not the number, is the durable content."
+      "source_url": "https://www.tax.ny.gov/pit/estate/etidx.htm",
+      "note": "For dates of death on or after January 1, 2026, through December 31, 2026. New York has its own estate tax, separate from and far lower than the federal exclusion. Adjusts annually; confirm the current year's figure at the source."
     },
-    "ny_estate_tax_cliff_multiplier": {
-      "label": "New York estate tax cliff (share of exclusion above which the full estate is taxed)",
-      "value": null,
-      "unit": "ratio",
-      "tax_year": null,
-      "as_of": null,
-      "status": "TODO(verify)",
-      "source": "New York State Department of Taxation and Finance",
-      "source_url": "https://www.tax.ny.gov/",
-      "note": "Above a threshold multiple of the exclusion, the exclusion phases out entirely and the whole estate is taxed. Verify the current multiple and mechanics."
+    "ny_estate_tax_cliff_pct": {
+      "label": "New York estate tax cliff — share of the basic exclusion above which the exclusion is fully lost",
+      "value": 105,
+      "unit": "percent",
+      "tax_year": 2026,
+      "as_of": "2026-07-24",
+      "status": "verified",
+      "source": "New York Consolidated Laws, Tax Law § 952(c)",
+      "source_url": "https://www.nysenate.gov/legislation/laws/TAX/952",
+      "note": "The mechanism, not just a number: an estate at or below the basic exclusion owes no NY estate tax; between 100% and 105% of it the exclusion phases out on a graduated basis; above 105% the exclusion is eliminated entirely and the whole estate is taxed."
     },
     "federal_estate_gift_exclusion": {
-      "label": "Federal unified estate and gift tax exclusion (per person)",
-      "value": null,
+      "label": "Federal unified estate and gift tax basic exclusion (per person)",
+      "value": 15000000,
       "unit": "USD",
-      "tax_year": null,
-      "as_of": null,
-      "status": "TODO(verify)",
-      "source": "Internal Revenue Service",
-      "source_url": "https://www.irs.gov/"
+      "tax_year": 2026,
+      "as_of": "2026-07-24",
+      "status": "verified",
+      "source": "Internal Revenue Service (2026 inflation adjustments, incl. the One Big Beautiful Bill Act)",
+      "source_url": "https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill",
+      "note": "Set to a $15,000,000 base for 2026, adjusted annually for inflation thereafter."
     },
     "federal_gift_annual_exclusion": {
       "label": "Federal gift tax annual exclusion (per recipient, per year)",
-      "value": null,
+      "value": 19000,
       "unit": "USD",
-      "tax_year": null,
-      "as_of": null,
-      "status": "TODO(verify)",
-      "source": "Internal Revenue Service",
-      "source_url": "https://www.irs.gov/"
+      "tax_year": 2026,
+      "as_of": "2026-07-24",
+      "status": "verified",
+      "source": "Internal Revenue Service (2026 inflation adjustments)",
+      "source_url": "https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill",
+      "note": "Unchanged from 2025."
+    },
+    "federal_noncitizen_spouse_annual_exclusion": {
+      "label": "Federal annual exclusion for gifts to a non-citizen spouse",
+      "value": 194000,
+      "unit": "USD",
+      "tax_year": 2026,
+      "as_of": "2026-07-24",
+      "status": "verified",
+      "source": "Internal Revenue Service (2026 inflation adjustments)",
+      "source_url": "https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill",
+      "note": "The unlimited marital deduction does not apply to a non-citizen spouse; a larger annual exclusion applies instead."
     }
   },
   "citations": {
     "scpa_1726": {
       "label": "NY SCPA § 1726 — standby guardian designation",
-      "as_of": null,
-      "status": "TODO(verify)",
-      "source": "New York Consolidated Laws, Surrogate's Court Procedure Act",
-      "source_url": "https://www.nysenate.gov/legislation/laws/SCP/1726"
+      "as_of": "2026-07-24",
+      "status": "verified",
+      "source": "New York Consolidated Laws, Surrogate's Court Procedure Act § 1726",
+      "source_url": "https://www.nysenate.gov/legislation/laws/SCP/1726",
+      "note": "Lets a parent designate a standby guardian whose authority commences on a triggering event — the parent's incapacity, debilitation (with consent), administrative separation, or death. The authority is concurrent with parental rights (it does not remove them), and the standby guardian must file a guardianship petition within 60 days or the authority terminates."
+    },
+    "tax_law_952": {
+      "label": "NY Tax Law § 952 — New York estate tax computation and the exclusion phase-out",
+      "as_of": "2026-07-24",
+      "status": "verified",
+      "source": "New York Consolidated Laws, Tax Law § 952(c)",
+      "source_url": "https://www.nysenate.gov/legislation/laws/TAX/952"
     }
   }
 }

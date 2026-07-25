@@ -41,37 +41,41 @@
 
   <p class="leadp">This site prefers <strong>durable mechanisms</strong> over changeable numbers wherever it can — "a power of attorney terminates at death" needs no date. But some content genuinely depends on a figure, and every one of those lives in a single machine-readable file, <span class="wrap-mono">data/ny/figures.json</span>, so a number appears in exactly one place and carries its own verification date.</p>
 
-  <div class="inprogress"><span class="tagm">status</span> <span>No tax figures are published on the site yet. The values below are staged and marked <strong>TODO(verify)</strong> until each is fetched from its primary source and dated. Nothing here should be relied on as a current amount.</span></div>
-
   <table class="sources">
-    <caption>Figures</caption>
+    <caption>Figures — verified 2026-07-24</caption>
     <thead>
       <tr><th scope="col">Figure</th><th scope="col">Value</th><th scope="col">Tax year</th><th scope="col">As of</th><th scope="col">Primary source</th></tr>
     </thead>
     <tbody>
       <tr>
-        <td>New York estate tax basic exclusion amount</td>
-        <td><span class="todo">TODO(verify)</span></td>
-        <td>—</td><td>—</td>
-        <td>NYS Dept. of Taxation &amp; Finance<br><a class="wrap-mono" href="https://www.tax.ny.gov/">tax.ny.gov</a></td>
+        <td>New York estate tax basic exclusion amount<br><span class="srcnote">Estate at or below this owes no NY estate tax.</span></td>
+        <td class="wrap-mono">$7,350,000</td>
+        <td>2026</td><td class="wrap-mono">2026-07-24</td>
+        <td>NYS Dept. of Taxation &amp; Finance<br><a class="wrap-mono" href="https://www.tax.ny.gov/pit/estate/etidx.htm">tax.ny.gov · estate tax</a></td>
       </tr>
       <tr>
-        <td>New York estate tax "cliff" mechanics</td>
-        <td><span class="todo">TODO(verify)</span></td>
-        <td>—</td><td>—</td>
-        <td>NYS Dept. of Taxation &amp; Finance<br><a class="wrap-mono" href="https://www.tax.ny.gov/">tax.ny.gov</a></td>
+        <td>New York estate tax "cliff"<br><span class="srcnote">Above 105% of the exclusion, the exclusion is lost entirely and the whole estate is taxed; it phases out on a graduated basis between 100% and 105%.</span></td>
+        <td class="wrap-mono">105%</td>
+        <td>2026</td><td class="wrap-mono">2026-07-24</td>
+        <td>NY Tax Law § 952(c)<br><a class="wrap-mono" href="https://www.nysenate.gov/legislation/laws/TAX/952">nysenate.gov · Tax 952</a></td>
       </tr>
       <tr>
         <td>Federal unified estate &amp; gift tax exclusion (per person)</td>
-        <td><span class="todo">TODO(verify)</span></td>
-        <td>—</td><td>—</td>
-        <td>Internal Revenue Service<br><a class="wrap-mono" href="https://www.irs.gov/">irs.gov</a></td>
+        <td class="wrap-mono">$15,000,000</td>
+        <td>2026</td><td class="wrap-mono">2026-07-24</td>
+        <td>Internal Revenue Service<br><a class="wrap-mono" href="https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill">irs.gov · 2026 adjustments</a></td>
       </tr>
       <tr>
         <td>Federal gift tax annual exclusion (per recipient, per year)</td>
-        <td><span class="todo">TODO(verify)</span></td>
-        <td>—</td><td>—</td>
-        <td>Internal Revenue Service<br><a class="wrap-mono" href="https://www.irs.gov/">irs.gov</a></td>
+        <td class="wrap-mono">$19,000</td>
+        <td>2026</td><td class="wrap-mono">2026-07-24</td>
+        <td>Internal Revenue Service<br><a class="wrap-mono" href="https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill">irs.gov · 2026 adjustments</a></td>
+      </tr>
+      <tr>
+        <td>Federal annual exclusion for gifts to a non-citizen spouse</td>
+        <td class="wrap-mono">$194,000</td>
+        <td>2026</td><td class="wrap-mono">2026-07-24</td>
+        <td>Internal Revenue Service<br><a class="wrap-mono" href="https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill">irs.gov · 2026 adjustments</a></td>
       </tr>
     </tbody>
   </table>
@@ -84,18 +88,24 @@
     <tbody>
       <tr>
         <td>NY SCPA § 1726</td>
-        <td>Standby guardian designation — guardianship that operates during a parent's incapacity, not only at death</td>
-        <td><span class="todo">TODO(verify)</span></td>
+        <td>Standby guardian designation — guardianship that can operate during a parent's incapacity, not only at death. Authority is concurrent with parental rights; a petition must follow within 60 days.</td>
+        <td class="wrap-mono">2026-07-24</td>
         <td>NY Consolidated Laws<br><a class="wrap-mono" href="https://www.nysenate.gov/legislation/laws/SCP/1726">nysenate.gov · SCPA 1726</a></td>
+      </tr>
+      <tr>
+        <td>NY Tax Law § 952</td>
+        <td>New York estate tax computation and the basic-exclusion phase-out (the cliff)</td>
+        <td class="wrap-mono">2026-07-24</td>
+        <td>NY Consolidated Laws<br><a class="wrap-mono" href="https://www.nysenate.gov/legislation/laws/TAX/952">nysenate.gov · Tax 952</a></td>
       </tr>
     </tbody>
   </table>
 
   <h2>How to read this</h2>
   <ul>
-    <li><strong>As of</strong> is the date the value was last checked against the primary source, not the date it was published.</li>
-    <li>A <span class="todo">TODO(verify)</span> value has not yet been fetched and dated, and is not shown as a figure anywhere on the site.</li>
-    <li>The machine-readable record is <span class="wrap-mono">data/ny/figures.json</span>. Pages read figures from that file so a number lives in one place and renders with its own date.</li>
+    <li><strong>As of</strong> is the date the value was last checked against the primary source, not the date it was published. These figures adjust — the estate-tax exclusions change most Januaries — so a stale date means confirm before relying on it.</li>
+    <li>Every value here was fetched from the primary source linked in its row. None is written from memory.</li>
+    <li>The machine-readable record is <span class="wrap-mono">data/ny/figures.json</span>, where each number lives once with its own verification date.</li>
   </ul>
 </main>
 

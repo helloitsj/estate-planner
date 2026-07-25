@@ -94,6 +94,7 @@ table.sources tr:last-child td{border-bottom:none;}
 table.sources .todo{font-family:var(--mono); font-size:11px; color:var(--term);
   background:var(--term-bg); border:1px solid var(--term-line); border-radius:4px; padding:1px 7px;}
 table.sources .wrap-mono{font-family:var(--mono); font-size:11px; word-break:break-all;}
+table.sources .srcnote{display:block; font-size:11.5px; color:var(--ink-soft); margin-top:4px; line-height:1.4;}
 
 /* ---- 4. Header / hero typography ----------------------------- */
 .eyebrow{font-family:var(--mono); font-size:10.5px; letter-spacing:.18em;
