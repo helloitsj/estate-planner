@@ -46,8 +46,8 @@ Others are scaffolded as "soon" on the landing.
 | # | Shape | Why it earns a page | comp |
 |---|-------|--------------------|------|
 | 1 | **Married/partnered, minor children** | Built. Guardianship, joint-incapacity gap, pour-over, HEMS. The canonical case. | high |
-| 2 | **Single parent** | No surviving-parent default — guardianship is the whole ballgame. Underserved. | med |
-| 3 | **Unmarried partners** | No intestate rights, no default decision authority. The incumbents barely cover it; highest differentiation. | **low** |
+| 2 | **Single parent** | **Built.** No surviving-parent default; adds the other-parent-rights branch. Served via the shape chooser on /ny/prepare/. | med |
+| 3 | **Unmarried partners** | Next up — highest differentiation. No intestate rights, no default decision authority; incumbents barely cover it. Bigger content lift (new mechanisms, not just guardianship). | **low** |
 | 4 | **Blended family** | Stepchildren, the NY elective share, stale beneficiary forms from a first marriage. High anxiety, thin content. | low |
 | 5 | **No children, married** | Who decides if you're both gone? Siblings/parents/charity. Simpler tree. | med |
 | 6 | **Adult with aging parents** | Reverse role — you as agent/fiduciary. Different spine, big audience. | med |
@@ -56,7 +56,7 @@ Others are scaffolded as "soon" on the landing.
 
 ## Explainers (the "things people get wrong" axis — one idea each)
 
-Built this session marked ✓.
+Full guides marked ✓ (600–1000 words, Article schema, terminate-in-questions).
 
 | # | Title | The one idea | comp |
 |---|-------|-------------|------|
@@ -83,10 +83,18 @@ Built this session marked ✓.
 
 ## Infrastructure / cross-cutting
 
-- `/sources` — every figure + primary source + last-verified date. Build with figures.json.
-- `/about` — real byline, "not a lawyer," how the site is verified.
-- figures.json entries needed before any tax content ships: NY basic exclusion
-  amount + cliff mechanics, federal estate/gift exclusion, gift annual
-  exclusion. All `TODO(verify)` until fetched from tax.ny.gov / irs.gov.
-- Print stylesheet hardening for the prep agenda (A4).
+- **Name the site.** Currently untitled ("this website" placeholders in the
+  explainer bylines + `Article` schema, marked `TODO(site-name)`). Once named,
+  replace those placeholders and the schema `author`/`publisher` name, and revisit
+  bylines. Also referenced in `CLAUDE.md`.
+- ✓ `/sources` — live with verified figures (NY exclusion, cliff, federal
+  estate/gift + annual, non-citizen-spouse) each with its primary source and
+  as-of date. Re-verify each January.
+- ✓ `/about` — done (generic authorship; "not a lawyer"; how figures are verified).
+- ✓ figures.json — NY + federal figures verified 2026-07-24 from tax.ny.gov /
+  irs.gov / nysenate.gov. Keep dates fresh.
+- Wire `/sources` (and any future tax content) to *read* figures.json at runtime
+  rather than the current hand-mirrored table, so a number truly lives in one place.
+- Print stylesheet hardening for the prep agenda (A4) — the filled sample runs ~3
+  pages; consider letting blocks flow and two-columning the checklists in print.
 - Consider a per-page "which life states this touches" chip strip (S0–S5).

@@ -13,10 +13,12 @@
 (function () {
   "use strict";
 
-  var DATA_URL = "../../data/ny/tree.json";
+  var DATA_DIR = "../../data/ny/";
+  var SHAPES_URL = DATA_DIR + "shapes.json";
   var mount = document.getElementById("tree");
   var staticEl = document.getElementById("treeStatic");
   if (!mount) return;
+  var shapes = [], currentShape = null;
 
   function el(tag, cls, html) {
     var n = document.createElement(tag);
@@ -88,9 +90,45 @@
     if (node.agendaLabel) answers.push({ label: node.agendaLabel, choice: opt.label, fact: opt.fact || opt.label });
   }
 
+  function renderShapebar() {
+    var bar = el("div", "shapebar");
+    bar.appendChild(el("span", "shapebar__lab",
+      "Household: <strong>" + esc(currentShape.label) + "</strong>"));
+    var change = el("button", "linkbtn", "Change household");
+    change.type = "button";
+    change.addEventListener("click", renderChooser);
+    bar.appendChild(change);
+    mount.appendChild(bar);
+  }
+
+  function renderChooser() {
+    mount.innerHTML = "";
+    if (staticEl) staticEl.hidden = true;
+    mount.hidden = false;
+    var card = el("div", "qcard");
+    var h = el("h2", "qtext", "Which describes your household?");
+    h.setAttribute("tabindex", "-1"); h.setAttribute("data-focus", "1");
+    card.appendChild(h);
+    card.appendChild(el("p", "qnote", "The walkthrough is tailored to each. You can switch at any time."));
+    var grid = el("div", "shapes");
+    shapes.forEach(function (s) {
+      var b = el("button", "shape");
+      b.type = "button";
+      b.innerHTML = "<h3>" + esc(s.label) + "</h3><p>" + esc(s.blurb || "") + "</p>";
+      b.addEventListener("click", function () { chooseShape(s); });
+      grid.appendChild(b);
+    });
+    card.appendChild(grid);
+    mount.appendChild(card);
+    var f = mount.querySelector("[data-focus]"); if (f) f.focus();
+  }
+
+  function chooseShape(shape) { currentShape = shape; loadTree(shape.tree); }
+
   function render(id) {
     var n = TREE.nodes[id];
     mount.innerHTML = "";
+    if (shapes.length > 1 && currentShape) renderShapebar();
     if (n.type === "question") renderQuestion(id, n);
     else renderTerminal(n);
     // move focus to the new card heading for keyboard/screen-reader users
@@ -210,26 +248,53 @@
     }}));
   }
 
-  fetch(DATA_URL)
-    .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
-    .then(function (tree) {
-      var errs = validate(tree);
-      if (errs.length) {
-        // Fail loudly for the author; leave the static fallback in place for users.
+  function loadTree(file) {
+    fetch(DATA_DIR + file)
+      .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+      .then(function (tree) {
+        var errs = validate(tree);
+        if (errs.length) {
+          // Fail loudly for the author; leave the static fallback in place for users.
+          mount.hidden = false;
+          mount.innerHTML = "";
+          mount.appendChild(el("div", "terminal terminal--scope",
+            "<h2 class='ttitle'>Walkthrough data needs a fix</h2><p class='tbody'>The decision tree didn't pass validation, so the interactive version is turned off and the summary below is shown instead.</p>"));
+          mount.appendChild(list("Validation errors", errs));
+          console.error(file + " validation failed:\n" + errs.join("\n"));
+          return;
+        }
+        TREE = tree;
+        if (staticEl) staticEl.hidden = true;
         mount.hidden = false;
-        mount.appendChild(el("div", "terminal terminal--scope",
-          "<h2 class='ttitle'>Walkthrough data needs a fix</h2><p class='tbody'>The decision tree didn't pass validation, so the interactive version is turned off and the summary below is shown instead.</p>"));
-        mount.appendChild(list("Validation errors", errs));
-        console.error("tree.json validation failed:\n" + errs.join("\n"));
-        return;
+        start();
+      })
+      .catch(function (e) {
+        // fetch blocked (e.g. file://) or network error: keep the static fallback.
+        console.warn("Decision tree not loaded (" + e.message + "); static fallback shown.");
+      });
+  }
+
+  // Load the shape manifest, then offer a chooser (multiple shapes) or load the
+  // single shape directly. If the manifest is missing, fall back to the original
+  // single tree so the page still works.
+  fetch(SHAPES_URL)
+    .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+    .then(function (data) {
+      shapes = (data && data.shapes) || [];
+      if (shapes.length > 1) {
+        renderChooser();
+      } else if (shapes.length === 1) {
+        currentShape = shapes[0];
+        if (staticEl) staticEl.hidden = true;
+        mount.hidden = false;
+        loadTree(shapes[0].tree);
+      } else {
+        throw new Error("empty manifest");
       }
-      TREE = tree;
+    })
+    .catch(function () {
       if (staticEl) staticEl.hidden = true;
       mount.hidden = false;
-      start();
-    })
-    .catch(function (e) {
-      // fetch blocked (e.g. file://) or network error: keep the static fallback.
-      console.warn("Decision tree not loaded (" + e.message + "); static fallback shown.");
+      loadTree("tree.json");
     });
 })();

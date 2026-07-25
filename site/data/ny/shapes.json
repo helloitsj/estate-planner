@@ -1,0 +1,17 @@
+{
+  "_comment": "Household-shape manifest for the /ny/prepare/ walkthrough. Each entry points at a self-contained tree.json. The renderer (assets/js/tree.js) offers a chooser when there is more than one shape, and loads a single shape directly. Add a shape = add an entry here plus its tree file; the renderer never changes.",
+  "shapes": [
+    {
+      "id": "married-minor-children",
+      "label": "Married or partnered, with minor children",
+      "blurb": "Two parents. Guardianship, the joint-incapacity gap, and how the children's money is held.",
+      "tree": "tree.json"
+    },
+    {
+      "id": "single-parent-minor-children",
+      "label": "Single parent, with minor children",
+      "blurb": "No second parent to fall back on. Guardianship and the incapacity gap are the whole ballgame.",
+      "tree": "tree-single-parent.json"
+    }
+  ]
+}

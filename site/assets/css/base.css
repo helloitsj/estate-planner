@@ -320,6 +320,13 @@ footer a{color:var(--ink-soft);}
   background:none; border:0; padding:6px 2px; cursor:pointer; text-transform:uppercase;}
 .linkbtn:hover{color:var(--accent);}
 
+.shapebar{display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding:10px 16px; background:#fbfcfa; border:1px solid var(--line); border-radius:9px;
+  margin-bottom:14px; font-size:13px;}
+.shapebar__lab{color:var(--ink-soft);}
+.shapebar__lab strong{color:var(--ink); font-weight:500;}
+button.shape{width:100%; text-align:left; font:inherit; cursor:pointer;}
+
 .terminal{border-left:4px solid var(--active);}
 .terminal--scope{border-left-color:var(--accent);}
 .ttitle{font-family:var(--serif); font-weight:600; font-size:22px; line-height:1.22; margin:0 0 12px; outline:none;}
