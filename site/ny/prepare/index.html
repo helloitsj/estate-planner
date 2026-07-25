@@ -30,7 +30,7 @@
   </div>
 </header>
 
-<main class="col solo prose" id="main">
+<main class="col solo prose page-prepare" id="main">
   <header class="pagehead">
     <p class="eyebrow">New York · Prepare</p>
     <h1>Walk in prepared</h1>
@@ -44,6 +44,93 @@
 
   <!-- interactive walkthrough mounts here (revealed only if JS runs and the data validates) -->
   <div id="tree" hidden></div>
+
+  <!-- the prep agenda: assembles into a printable A4 sheet. Fiduciary and asset
+       fields are real inputs (usable and printable with no JS); the walkthrough
+       results fill in via prep.js. State is localStorage only. -->
+  <section id="agenda" class="agenda" aria-label="Your prep agenda">
+    <div class="agenda__doc">
+      <div class="agenda__head">
+        <div>
+          <p class="eyebrow">New York · Prep agenda</p>
+          <h2 class="agenda__title">Estate planning — meeting agenda</h2>
+        </div>
+        <p class="agenda__meta">Prepared <span id="agendaDate">—</span><br>New York · educational, not legal advice</p>
+      </div>
+
+      <div id="agendaWalk" class="agenda__walk">
+        <p class="agenda-empty">Complete the walkthrough above and your answers — and the questions it raises — will appear here, ready to print.</p>
+      </div>
+
+      <div class="agenda__block">
+        <h3 class="agenda__h">Fiduciary candidates</h3>
+        <p class="agenda__hint">People you'd consider for each role, and a backup. Names to talk through — deciding is for you and your attorney.</p>
+        <div class="fidgrid">
+          <div class="fidrow"><span class="fidlabel">Health care agent<em>medical decisions</em></span><input data-prep="fid_hc" aria-label="Health care agent, first choice" placeholder="First choice"><input data-prep="fid_hc_bk" aria-label="Health care agent, backup" placeholder="Backup"></div>
+          <div class="fidrow"><span class="fidlabel">Financial agent<em>power of attorney</em></span><input data-prep="fid_poa" aria-label="Financial agent, first choice" placeholder="First choice"><input data-prep="fid_poa_bk" aria-label="Financial agent, backup" placeholder="Backup"></div>
+          <div class="fidrow"><span class="fidlabel">Executor<em>of the will</em></span><input data-prep="fid_exec" aria-label="Executor, first choice" placeholder="First choice"><input data-prep="fid_exec_bk" aria-label="Executor, backup" placeholder="Backup"></div>
+          <div class="fidrow"><span class="fidlabel">Trustee<em>children's trust</em></span><input data-prep="fid_trustee" aria-label="Trustee, first choice" placeholder="First choice"><input data-prep="fid_trustee_bk" aria-label="Trustee, backup" placeholder="Backup"></div>
+          <div class="fidrow"><span class="fidlabel">Guardian<em>minor children</em></span><input data-prep="fid_guardian" aria-label="Guardian, first choice" placeholder="First choice"><input data-prep="fid_guardian_bk" aria-label="Guardian, backup" placeholder="Backup"></div>
+        </div>
+      </div>
+
+      <div class="agenda__block">
+        <h3 class="agenda__h">Your advisors</h3>
+        <p class="agenda__hint">Anyone already in the picture. Your attorney will often want to coordinate with them.</p>
+        <div class="fidgrid">
+          <div class="fidrow advrow"><span class="fidlabel">Financial advisor</span><input data-prep="adv_financial" aria-label="Financial advisor" placeholder="Name, firm, phone"></div>
+          <div class="fidrow advrow"><span class="fidlabel">Accountant / CPA</span><input data-prep="adv_accountant" aria-label="Accountant or CPA" placeholder="Name, firm, phone"></div>
+          <div class="fidrow advrow"><span class="fidlabel">Current attorney<em>if any</em></span><input data-prep="adv_attorney" aria-label="Current attorney" placeholder="Name, firm, phone"></div>
+          <div class="fidrow advrow"><span class="fidlabel">Insurance agent</span><input data-prep="adv_insurance" aria-label="Insurance agent" placeholder="Name, firm, phone"></div>
+        </div>
+      </div>
+
+      <div class="agenda__block">
+        <h3 class="agenda__h">Asset checklist</h3>
+        <p class="agenda__hint">What exists to plan around. Check what applies; jot specifics for the meeting.</p>
+        <div class="assetgrid">
+          <label class="chk"><input type="checkbox" data-prep="as_home"> Home / primary residence</label>
+          <label class="chk"><input type="checkbox" data-prep="as_realestate"> Other real estate</label>
+          <label class="chk"><input type="checkbox" data-prep="as_bank"> Bank / cash accounts</label>
+          <label class="chk"><input type="checkbox" data-prep="as_invest"> Investment / brokerage accounts</label>
+          <label class="chk"><input type="checkbox" data-prep="as_retire"> Retirement accounts (401(k), IRA)</label>
+          <label class="chk"><input type="checkbox" data-prep="as_life"> Life insurance</label>
+          <label class="chk"><input type="checkbox" data-prep="as_disability"> Disability insurance</label>
+          <label class="chk"><input type="checkbox" data-prep="as_umbrella"> Umbrella / excess liability insurance</label>
+          <label class="chk"><input type="checkbox" data-prep="as_annuity"> Annuities</label>
+          <label class="chk"><input type="checkbox" data-prep="as_business"> Business interest</label>
+          <label class="chk"><input type="checkbox" data-prep="as_bizagree"> Business agreements (buy-sell, partnership)</label>
+          <label class="chk"><input type="checkbox" data-prep="as_vehicles"> Vehicles</label>
+          <label class="chk"><input type="checkbox" data-prep="as_digital"> Digital assets (accounts, photos, crypto)</label>
+          <label class="chk"><input type="checkbox" data-prep="as_personal"> Personal property of note</label>
+        </div>
+        <textarea data-prep="as_notes" class="assetnotes" rows="3" aria-label="Asset notes" placeholder="Notes — account types, rough locations, anything to remember"></textarea>
+      </div>
+
+      <div class="agenda__block">
+        <h3 class="agenda__h">Documents to bring</h3>
+        <p class="agenda__hint">Whatever you already have. Copies are fine — it makes the first meeting far more productive.</p>
+        <div class="assetgrid">
+          <label class="chk"><input type="checkbox" data-prep="doc_will"> Existing will or trust</label>
+          <label class="chk"><input type="checkbox" data-prep="doc_poa"> Power of attorney / health care proxy</label>
+          <label class="chk"><input type="checkbox" data-prep="doc_deeds"> Property deeds</label>
+          <label class="chk"><input type="checkbox" data-prep="doc_benef"> Beneficiary designation forms (401(k), IRA, life insurance)</label>
+          <label class="chk"><input type="checkbox" data-prep="doc_tax"> Recent tax returns</label>
+          <label class="chk"><input type="checkbox" data-prep="doc_policies"> Insurance policies</label>
+          <label class="chk"><input type="checkbox" data-prep="doc_statements"> Recent account statements</label>
+          <label class="chk"><input type="checkbox" data-prep="doc_prenup"> Prenuptial or divorce agreements</label>
+        </div>
+      </div>
+
+      <p class="agenda__disc print-only"><strong>Educational information, not legal advice.</strong> Prepared to organize a first meeting. It does not evaluate any situation and creates no attorney–client relationship. New York only; law varies by state and changes over time. Consult a licensed New York attorney.</p>
+    </div>
+
+    <div class="agenda__controls no-print">
+      <button id="printAgenda" class="btn" type="button">Print / Save as PDF</button>
+      <button id="clearAnswers" class="btn ghost" type="button">Clear my answers</button>
+      <span class="privacy">◆ Your answers never leave this browser</span>
+    </div>
+  </section>
 
   <!-- static fallback: works with no JS and with CSS disabled -->
   <div id="treeStatic">
@@ -83,5 +170,6 @@
   </div>
 </footer>
 <script src="../../assets/js/tree.js"></script>
+<script src="../../assets/js/prep.js"></script>
 </body>
 </html>

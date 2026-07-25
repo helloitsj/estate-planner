@@ -196,6 +196,18 @@
     var note = el("p", "tnote", "This walkthrough describes how the law works. It doesn't evaluate your situation — the items above are questions to raise with a licensed New York attorney, not conclusions.");
     card.appendChild(note);
     mount.appendChild(card);
+
+    // Hand the completed walk to the prep agenda (if present). Decoupled: the
+    // walkthrough works standalone; no listener means this is a no-op.
+    document.dispatchEvent(new CustomEvent("ep:terminal", { detail: {
+      facts: answers.slice(),
+      terminal: {
+        title: n.title,
+        kind: n.type,
+        attorneyQuestions: (n.attorneyQuestions || []).slice(),
+        worthConfirming: (n.worthConfirming || []).slice()
+      }
+    }}));
   }
 
   fetch(DATA_URL)
