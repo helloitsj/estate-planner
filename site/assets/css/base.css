@@ -145,7 +145,14 @@ h1 em{font-style:italic;color:var(--accent);}
   margin:0 0 var(--s2);letter-spacing:0;text-transform:none;}
 .lede,.leadp{font-size:23px;line-height:1.5;color:var(--ink);max-width:62ch;margin:0 0 var(--s5);}
 
-/* the required legal notice: standing matter, not an alert box */
+/* End-of-main required notice: present on every page, last in reading order.
+   Hairline rule, no fill, no radius — standing matter, not an alert. */
+.endnote{font-family:var(--serif);font-style:italic;font-size:15px;line-height:1.55;
+  color:var(--ink-2);max-width:80ch;margin:var(--s8) 0 0;padding-top:var(--s4);
+  border-top:1px solid var(--rule);}
+.endnote strong{font-style:normal;font-weight:600;color:var(--ink);}
+
+/* Inline notice — kept where the user is entering their own facts (/ny/prepare/) */
 .disclaimer{font-family:var(--serif);font-style:italic;font-size:15px;line-height:1.55;
   color:var(--ink-2);max-width:62ch;background:none;border:0;border-radius:0;
   border-left:2px solid var(--accent-line);padding:0 0 0 var(--s4);margin:var(--s5) 0;}

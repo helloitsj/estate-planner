@@ -5,78 +5,146 @@
     "shape": "single-parent-minor-children",
     "shapeLabel": "Single parent, with minor children",
     "maxDepth": 5,
-    "start": "q_scope",
-    "updated": "2026-07-24"
+    "start": "q_agents_sp",
+    "updated": "2026-07-25"
   },
   "nodes": {
-
     "q_scope": {
       "type": "question",
-      "question": "Before we begin — does any of this describe your situation?",
-      "note": "Any one of these makes a plan complex enough that it belongs with an attorney from the start. Picking one isn't a dead end. It's the tool pointing you to the right conversation.",
+      "question": "Does any of this describe your situation?",
+      "note": "Any one of these makes a plan complex enough that it belongs with an attorney from the start. Picking one isn't a dead end — it's the tool pointing you to the right conversation, and you'll keep the answers you've given so far.",
       "agendaLabel": "Complexity flags",
       "options": [
-        { "label": "I own a business or professional practice", "fact": "Owns a business or practice", "terminal": "x_business" },
-        { "label": "I own real estate in another state", "fact": "Real property outside New York", "terminal": "x_out_of_state" },
-        { "label": "A child or beneficiary has a disability or special needs", "fact": "A beneficiary has a disability or special needs", "terminal": "x_special_needs" },
-        { "label": "My estate may be large enough to owe estate tax", "fact": "Estate may reach the estate-tax threshold", "terminal": "x_taxable" },
-        { "label": "None of these", "fact": "None of the common complexity flags", "next": "q_agents_sp" }
+        {
+          "label": "I own a business or professional practice",
+          "fact": "Owns a business or practice",
+          "terminal": "x_business"
+        },
+        {
+          "label": "I own real estate in another state",
+          "fact": "Real property outside New York",
+          "terminal": "x_out_of_state"
+        },
+        {
+          "label": "A child or beneficiary has a disability or special needs",
+          "fact": "A beneficiary has a disability or special needs",
+          "terminal": "x_special_needs"
+        },
+        {
+          "label": "My estate may be large enough to owe estate tax",
+          "fact": "Estate may reach the estate-tax threshold",
+          "terminal": "x_taxable"
+        },
+        {
+          "label": "None of these",
+          "fact": "None of the common complexity flags",
+          "next": "q_incapacity_sp"
+        }
       ]
     },
-
     "q_agents_sp": {
       "type": "question",
       "question": "If you couldn't make your own medical and financial decisions for a while, have you named someone to step in — and a backup if that person can't serve?",
       "note": "As a single parent there's no spouse who steps in by default. This is about being alive but unable to decide, not about death.",
       "agendaLabel": "Decision-makers during incapacity",
       "options": [
-        { "label": "Yes — an agent and a backup for both medical and financial", "fact": "Health care agent and financial agent named, with backups", "next": "q_guardian_sp" },
-        { "label": "I've named someone, but no backup", "fact": "Agent named; no backup named", "terminal": "t_incapacity_agents_sp" },
-        { "label": "Not yet, or not sure", "fact": "Decision-makers during incapacity not yet settled", "terminal": "t_incapacity_agents_sp" }
+        {
+          "label": "Yes — an agent and a backup for both medical and financial",
+          "fact": "Health care agent and financial agent named, with backups",
+          "next": "q_guardian_sp"
+        },
+        {
+          "label": "I've named someone, but no backup",
+          "fact": "Agent named; no backup named",
+          "terminal": "t_incapacity_agents_sp"
+        },
+        {
+          "label": "Not yet, or not sure",
+          "fact": "Decision-makers during incapacity not yet settled",
+          "terminal": "t_incapacity_agents_sp"
+        }
       ]
     },
-
     "q_guardian_sp": {
       "type": "question",
       "question": "If something happened to you, who would raise your minor children — and is their other parent in the picture?",
       "agendaLabel": "Guardian for minor children",
       "options": [
-        { "label": "I've chosen someone; the other parent is deceased or not involved", "fact": "Guardian chosen; other parent not involved/deceased", "next": "q_incapacity_sp" },
-        { "label": "I've chosen someone, but the other parent is living and involved", "fact": "Guardian chosen; other parent living and involved", "terminal": "t_other_parent" },
-        { "label": "I haven't chosen anyone yet", "fact": "Guardian not yet chosen", "next": "q_incapacity_sp" }
+        {
+          "label": "I've chosen someone; the other parent is deceased or not involved",
+          "fact": "Guardian chosen; other parent not involved/deceased",
+          "next": "q_scope"
+        },
+        {
+          "label": "I've chosen someone, but the other parent is living and involved",
+          "fact": "Guardian chosen; other parent living and involved",
+          "terminal": "t_other_parent"
+        },
+        {
+          "label": "I haven't chosen anyone yet",
+          "fact": "Guardian not yet chosen",
+          "next": "q_scope"
+        }
       ]
     },
-
     "q_incapacity_sp": {
       "type": "question",
       "question": "If you were alive but unable to care for your children for a stretch — hospitalized, say — have you named who steps in during that time?",
       "note": "This is a different moment from the guardian in your will, which operates at death. As a single parent there's no other parent to step in.",
       "agendaLabel": "Care for children during incapacity",
       "options": [
-        { "label": "Yes — handled separately from my will", "fact": "Incapacity caregiver addressed separately", "next": "q_money" },
-        { "label": "I assumed my will covers it", "fact": "Assumed the will's guardian covers incapacity", "terminal": "t_guardianship_sp" },
-        { "label": "No, or not sure", "fact": "Care during incapacity not addressed", "terminal": "t_guardianship_sp" }
+        {
+          "label": "Yes — handled separately from my will",
+          "fact": "Incapacity caregiver addressed separately",
+          "next": "q_money"
+        },
+        {
+          "label": "I assumed my will covers it",
+          "fact": "Assumed the will's guardian covers incapacity",
+          "terminal": "t_guardianship_sp"
+        },
+        {
+          "label": "No, or not sure",
+          "fact": "Care during incapacity not addressed",
+          "terminal": "t_guardianship_sp"
+        }
       ]
     },
-
     "q_money": {
       "type": "question",
       "question": "Last piece: how the money reaches your children. Have you decided whether they receive it outright at certain ages, or through a trust that manages and protects it?",
       "agendaLabel": "How children receive money",
       "options": [
-        { "label": "Through a trust, with ages or terms chosen", "fact": "Children's money via trust; ages/terms chosen", "terminal": "t_childrens_money_sp" },
-        { "label": "Outright at certain ages", "fact": "Children's money outright at set ages", "terminal": "t_childrens_money_sp" },
-        { "label": "Haven't decided", "fact": "How children receive money not yet decided", "terminal": "t_childrens_money_sp" }
+        {
+          "label": "Through a trust, with ages or terms chosen",
+          "fact": "Children's money via trust; ages/terms chosen",
+          "terminal": "t_childrens_money_sp"
+        },
+        {
+          "label": "Outright at certain ages",
+          "fact": "Children's money outright at set ages",
+          "terminal": "t_childrens_money_sp"
+        },
+        {
+          "label": "Haven't decided",
+          "fact": "How children receive money not yet decided",
+          "terminal": "t_childrens_money_sp"
+        }
       ]
     },
-
     "t_incapacity_agents_sp": {
       "type": "guidance",
       "title": "Naming your decision-makers — and their backups",
       "mechanism": "As a single parent, no spouse steps in by default if you can't make your own medical or financial decisions. Those decisions fall to the people you name: a health care agent under a health care proxy (New York names one agent at a time, with successors behind them), and a financial agent under a durable power of attorney, which can name a successor. Both operate only while you are alive and end at death. If the first-named person can't serve and no backup is named, authority can fall to no one until a court appoints someone.",
       "explainers": [
-        { "label": "Why a power of attorney and a health care proxy both end at death", "href": "../explainers/poa-and-proxy-end-at-death/" },
-        { "label": "See the incapacity states on the timeline", "href": "../timeline/#S1" }
+        {
+          "label": "Why a power of attorney and a health care proxy both end at death",
+          "href": "../explainers/poa-and-proxy-end-at-death/"
+        },
+        {
+          "label": "See the incapacity states on the timeline",
+          "href": "../timeline/#S1"
+        }
       ],
       "attorneyQuestions": [
         "Who is my first health care agent and my first financial agent, and who is the named backup behind each if that person can't serve?",
@@ -87,14 +155,19 @@
         "Worth confirming: whether each document names at least one backup, so authority doesn't rest on a single person being available."
       ]
     },
-
     "t_guardianship_sp": {
       "type": "guidance",
       "title": "For a single parent, the incapacity gap has no fallback",
       "mechanism": "A guardian named in a will operates at death. If you are alive but temporarily unable to care for your children, the will hasn't spoken — and as a single parent there's no second parent to step in. New York fills that gap with a separate instrument: a standby guardian designation under SCPA 1726, which can be written to operate on incapacity rather than at death, and runs alongside your own rights so it can end when you recover. Without one, no one holds clean legal authority over your children until a court acts.",
       "explainers": [
-        { "label": "Why a will's guardian doesn't operate during incapacity", "href": "../explainers/guardianship-and-incapacity/" },
-        { "label": "See the incapacity state on the timeline", "href": "../timeline/#S2" }
+        {
+          "label": "Why a will's guardian doesn't operate during incapacity",
+          "href": "../explainers/guardianship-and-incapacity/"
+        },
+        {
+          "label": "See the incapacity state on the timeline",
+          "href": "../timeline/#S2"
+        }
       ],
       "attorneyQuestions": [
         "Does my plan cover who cares for my children if I'm alive but incapacitated, not only if I die?",
@@ -105,13 +178,15 @@
         "Worth confirming: whether any standby designation is written to end when I recover."
       ]
     },
-
     "t_other_parent": {
       "type": "guidance",
       "title": "A surviving parent's rights and your guardian nomination are two different things",
       "mechanism": "When your children's other parent is living and has parental rights, that changes the picture. A guardian named in a will is a nomination — courts weigh it heavily — but a surviving legal parent generally has priority for custody over a non-parent named in a will. How your nomination and the other parent's rights interact turns on facts a general tool can't weigh, which is exactly what a first meeting with an attorney is for.",
       "explainers": [
-        { "label": "Why a will's guardian doesn't operate during incapacity", "href": "../explainers/guardianship-and-incapacity/" }
+        {
+          "label": "Why a will's guardian doesn't operate during incapacity",
+          "href": "../explainers/guardianship-and-incapacity/"
+        }
       ],
       "attorneyQuestions": [
         "Given that my children's other parent is living, how does my guardian nomination interact with their parental rights?",
@@ -122,13 +197,15 @@
         "Worth confirming: whether my reasons for my nomination are written down somewhere an attorney can review."
       ]
     },
-
     "t_childrens_money_sp": {
       "type": "guidance",
       "title": "Who raises your children and who manages their money can be two separate roles",
       "mechanism": "In New York, a guardian raises the children but does not automatically control the money left for them. A trustee manages and disburses those funds under the trust's terms — often a 'health, education, maintenance, and support' standard. As a single parent you're choosing both roles from scratch, and they are often, deliberately, different people. When and how children receive money outright is set by the trust, and the common patterns — staggered ages, a protective lifetime trust, or a single 'pot' held until the youngest reaches a set age — trade autonomy against protection rather than being right or wrong.",
       "explainers": [
-        { "label": "See the both-parents-gone state on the timeline", "href": "../timeline/#S4" }
+        {
+          "label": "See the both-parents-gone state on the timeline",
+          "href": "../timeline/#S4"
+        }
       ],
       "attorneyQuestions": [
         "Should the person who raises my children and the person who manages their inheritance be the same person or two different people?",
@@ -139,7 +216,6 @@
         "Worth confirming: whether the ages or terms for distributions are written into the trust rather than left to be decided later."
       ]
     },
-
     "x_business": {
       "type": "scopeExit",
       "trigger": "business-interest",
@@ -150,7 +226,6 @@
         "Does owning the business change who should serve as my agent, executor, or trustee?"
       ]
     },
-
     "x_out_of_state": {
       "type": "scopeExit",
       "trigger": "out-of-state-property",
@@ -161,7 +236,6 @@
         "Which state's law governs that property, and does it change who inherits it?"
       ]
     },
-
     "x_special_needs": {
       "type": "scopeExit",
       "trigger": "special-needs-beneficiary",
@@ -172,20 +246,21 @@
         "How should gifts from relatives be directed so they don't unintentionally disrupt those benefits?"
       ]
     },
-
     "x_taxable": {
       "type": "scopeExit",
       "trigger": "taxable-estate",
       "title": "Once estate tax is in play, this is attorney territory",
       "body": "New York has its own estate tax, separate from the federal one and with a 'cliff' — above a threshold, the exclusion can phase out entirely. The current figures live on the Sources page. When an estate may cross that line, the planning becomes tax planning, which is exactly what an attorney (often with an accountant) is for.",
       "explainers": [
-        { "label": "Current estate-tax figures and when they were last verified", "href": "../sources/" }
+        {
+          "label": "Current estate-tax figures and when they were last verified",
+          "href": "../sources/"
+        }
       ],
       "attorneyQuestions": [
         "Is my estate likely to owe New York estate tax, and does the cliff apply to me?",
         "Are there planning steps — trusts, gifting, how assets are titled — that change the exposure?"
       ]
     }
-
   }
 }
