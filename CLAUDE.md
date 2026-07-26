@@ -166,22 +166,53 @@ renderer never changes. `meta.maxDepth` = 5, asserted across all paths.
 
 ---
 
-## Design system (FIXED — extend, never restyle)
+## Design system (rewritten 2026-07-25 — extend, never restyle)
 
-Spectral headings, IBM Plex Sans body, IBM Plex Mono for labels/data/codes.
-Paper/ink palette. Semantic triad: **green active, grey dormant, red
-terminated.** Brass accent (`--accent`) is the only "look here" color — used
-for eyebrows, mono labels, section numbers, scrubber fill, flag borders. Never
-decoration.
+**Superseded:** the original Spectral / IBM Plex / cool-ink system was replaced
+after the author found it hard to read and "very AI generated." The old rule
+"Mono = fact/label, Serif = idea, Sans = explanation" no longer applies.
 
-- **No** new palette, gradients, glassmorphism, or stock photography.
-- Color carries meaning, not mood. Mono = fact/label, Serif = idea, Sans =
-  explanation. White cards on paper, hairline `--line` borders, one shadow.
+**The argument: this is a reference DOCUMENT, not an app.** Documents do not
+float — `box-shadow` appears nowhere, `border-radius` never exceeds 2px, and
+two-column card grids are replaced by full-width ruled lists.
+
+- **Type — two families, five faces.** Source Serif 4 (body, headings, labels,
+  dates — ~85% of type) + Source Sans 3 (interface only: nav, buttons, table
+  headers, triad labels, form fields). **No monospace**;
+  `font-variant-numeric: tabular-nums` handles numeric alignment.
+- **Scale anchored at 19px body**, line-height 1.62, measure 66ch. Eight steps:
+  13 / 15 / 17 / 19 / 23 / 29 / 36 / 46. **Nothing below 13px ships.**
+  Two adjacent levels of hierarchy never sit one utility step apart.
+- **Surfaces inverted.** `--sheet #faf8f3` is the page; `--paper #eceae3` is a
+  *recess* (table header bands, set-asides), never a field cards sit on.
+  Ink is warm (`--ink #23201c`, hue ≈33°) to match the paper — the old
+  `#202830` was a blue and clashed.
+- **Every block is one of four treatments:** flow (no container, ~70%), recess,
+  panel (the instrument readout and nothing else — one per view), margin note
+  (3px left rule, for attorney flags / terminals / scope exits).
+- **Semantic triad** — active / dormant / ended — carries meaning through **four
+  redundant channels**: mark form (filled / open / struck square), weight,
+  strike-through, and hue. **Never hue alone** (colourblind + monochrome print).
+- **Uppercase + letterspacing appears in exactly ONE component site-wide:** the
+  triad state labels. Everywhere else, sentence case.
+- **Brass `--accent #825e12` is the only "look here" colour**, and it is
+  text-safe (5.56:1). `--accent-line #a8791f` is for rules/underlines only.
+- **No ISO dates in visible text** ("23 July 2026", not `2026-07-23`); keep
+  `<time datetime>` for machines. No `→ ← ◆ ▾` as ornament.
 - All motion respects `prefers-reduced-motion`. Motion is diegetic (it
   demonstrates the thesis), never decorative.
 
+**WCAG AA is enforced, not assumed.** The previous system shipped a real failure
+(brass at 3.16:1 carrying body links). Every text pair in the current system was
+computed and passes; re-check any new colour before committing it.
+
 Tokens live once, at the top of `assets/css/base.css`. Every page links that
 one stylesheet.
+
+### Naming
+The site has **no chosen name**. "Estate Planner" is a working placeholder in
+the masthead, page titles, footer, and `Article` schema, marked
+`TODO(site-name)`. Replacing it is a find-and-replace of that string.
 
 ---
 
